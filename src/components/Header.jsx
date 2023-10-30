@@ -2,23 +2,34 @@ import Constants from '@/configs/constants';
 import '@/styles/css/header.css';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button, Grid, Menu, MenuItem, Typography } from '@mui/material';
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
 
-const Header: React.FC = () => {
+const Header = () => {
 	const [isHovered, setIsHovered] = useState(false);
-	const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [isMobileDevice, setIsMobileDevice] = useState(false);
+	const [anchorEl, setAnchorEl] = useState(null);
 
 	const open = Boolean(anchorEl);
 	const sections = Constants['sections'];
 
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const navigate = useNavigate();
+
+	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
 
 	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const handleOnClick = (path) => {
+		navigate(path);
+	};
+
+	const handleOnClickMobile = (path) => {
+		navigate(path);
 		setAnchorEl(null);
 	};
 
@@ -36,6 +47,7 @@ const Header: React.FC = () => {
 						xs={6}
 						alignItems={'center'}
 						direction={'column'}
+						onClick={() => handleOnClick('/')}
 					>
 						<Typography
 							color={'black'}
@@ -84,6 +96,7 @@ const Header: React.FC = () => {
 								onMouseLeave={(e) =>
 									(e.currentTarget.style.border = '2px solid transparent')
 								}
+								onClick={() => handleOnClick(section.path)}
 							>
 								<Typography
 									component="span"
@@ -140,6 +153,7 @@ const Header: React.FC = () => {
 											style={{
 												fontFamily: "'Montserrat', sans-serif",
 											}}
+											onClick={() => handleOnClickMobile(section.path)}
 										>
 											{section.title}
 										</Typography>
@@ -157,20 +171,21 @@ const Header: React.FC = () => {
 						>
 							Welcome to
 						</Typography>
-					</Grid>
-					<Grid item xs={12} container style={{ justifyContent: 'center' }}>
-						<Typography
-							color={'black'}
-							variant={innerWidth < 380 ? 'h5' : 'h4'}
-							className={`zoom-in ${isHovered ? 'pointer' : ''}`}
-							onMouseEnter={() => setIsHovered(true)}
-							onMouseLeave={() => setIsHovered(false)}
-							style={{
-								fontFamily: "'Montserrat', sans-serif",
-							}}
-						>
-							Dang Khoa&#39;s Home
-						</Typography>
+						<Grid item xs={12} container style={{ justifyContent: 'center' }}>
+							<Typography
+								color={'black'}
+								variant={innerWidth < 380 ? 'h5' : 'h4'}
+								className={`zoom-in ${isHovered ? 'pointer' : ''}`}
+								onMouseEnter={() => setIsHovered(true)}
+								onMouseLeave={() => setIsHovered(false)}
+								style={{
+									fontFamily: "'Montserrat', sans-serif",
+								}}
+								onClick={() => handleOnClick('/')}
+							>
+								Dang Khoa&#39;s Home
+							</Typography>
+						</Grid>
 					</Grid>
 				</Grid>
 			)}

@@ -1,8 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React from 'react';
 
-const Loading: React.FC = () => {
+const Loading = () => {
 	return (
 		<Grid item container height={'100vh'} width={'100%'} direction={'column'}>
 			<Grid

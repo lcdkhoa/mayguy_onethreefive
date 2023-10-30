@@ -1,7 +1,8 @@
 import { Grid, Typography } from '@mui/material';
-import React from 'react';
+import moment from 'moment';
 
-const Footer: React.FC = () => {
+const Footer= () => {
+	const year = moment().year();
 	return (
 		<Grid
 			item
@@ -12,7 +13,7 @@ const Footer: React.FC = () => {
 			pt={2}
 		>
 			<Typography style={{ fontFamily: "'Montserrat', sans-serif" }}>
-				&copy; 2023 lcdkhoa. All rights reserved.
+				&copy; {year} lcdkhoa. All rights reserved.
 			</Typography>
 		</Grid>
 	);
