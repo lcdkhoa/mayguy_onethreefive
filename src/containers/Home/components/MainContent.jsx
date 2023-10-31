@@ -1,7 +1,7 @@
+import DeviceContext from '@/components/DetectDevice';
 import Constants from '@/configs/constants';
 import { Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
+import { useContext, useEffect, useState } from 'react';
 
 const backgroundDesktop = Constants['backgroundDesktop'];
 const backgroundMobile = Constants['backgroundMobile'];
@@ -9,10 +9,9 @@ const backgroundMobile = Constants['backgroundMobile'];
 const MainContent = () => {
 	const [windowHeight, setWindowHeight] = useState(0);
 	const [background, setBackground] = useState([]);
-	const [isMobileDevice, setIsMobileDevice] = useState('');
+	let isMobileDevice = useContext(DeviceContext);
 
 	useEffect(() => {
-		setIsMobileDevice(isMobile);
 		isMobileDevice
 			? setBackground(backgroundMobile)
 			: setBackground(backgroundDesktop);
