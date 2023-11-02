@@ -9,6 +9,5 @@ export const color = {
 	lightGreyBg: '#EEF0F1',
 	snackBarUpdate: '#0288D1',
 	grey: '#969696',
-	retirementBg: '#F8B9AA',
 	loading: '#726F6F',
 };

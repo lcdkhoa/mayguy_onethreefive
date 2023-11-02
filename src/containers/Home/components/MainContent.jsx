@@ -1,13 +1,9 @@
 import DeviceContext from '@/components/DetectDevice';
-import Constants from '@/configs/constants';
+import { backgroundDesktop, backgroundMobile } from '@/configs/constants';
 import { Grid } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 
-const backgroundDesktop = Constants['backgroundDesktop'];
-const backgroundMobile = Constants['backgroundMobile'];
-
 const MainContent = () => {
-	const [windowHeight, setWindowHeight] = useState(0);
 	const [background, setBackground] = useState([]);
 	let isMobileDevice = useContext(DeviceContext);
 
@@ -36,29 +32,24 @@ const MainContent = () => {
 	};
 	const styles = {
 		imageContainer: {
-			width: '100%',
-			height: windowHeight * 0.8,
-			maxWidth: '100vw',
-			flex: '0.75',
-			position: 'relative',
+			height: `${innerHeight * 0.8}px`,
 			borderColor: '#DEE4E7',
+			borderRadius: '10px',
 			backgroundSize: 'cover',
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: 'center',
 			animation: `changeBackground 10s infinite`,
 		},
 	};
-	useEffect(() => {
-		setWindowHeight(window.innerHeight);
-	}, []);
+
 	return (
 		<>
 			<style>{createKeyframes()}</style>
 			<Grid
+				margin={'10px 0 10px 0'}
 				item
 				container
 				direction={'row'}
-				padding={10}
 				border={5}
 				sx={styles.imageContainer}
 			></Grid>

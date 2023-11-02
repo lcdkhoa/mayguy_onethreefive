@@ -1,13 +1,7 @@
-import { Container } from '@mui/material';
-
 import MainContent from './components/MainContent';
 
 const Tools = () => {
-	return (
-		<Container maxWidth={'lg'}>
-			<MainContent />
-		</Container>
-	);
+	return <MainContent />;
 };
 
 export default Tools;

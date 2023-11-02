@@ -13,19 +13,25 @@ function App() {
 	const isMobile = /iPhone|Android/i.test(navigator.userAgent);
 
 	return (
-		<Grid container direction="column" wrap="nowrap">
+		<Grid direction="column" wrap="nowrap" container>
 			<DeviceContext.Provider value={isMobile}>
 				<BrowserRouter>
-					<Header />
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/blogs" element={<Blogs />} />
-						<Route path="/tools" element={<Tools />} />
-						<Route path="/about" element={<About />} />
-						<Route path="*" element={<NotFound />} />
-					</Routes>
+					<Grid item container xs={3}>
+						<Header />
+					</Grid>
+					<Grid item container xs={9}>
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/blogs" element={<Blogs />} />
+							<Route path="/tools" element={<Tools />} />
+							<Route path="/about" element={<About />} />
+							<Route path="*" element={<NotFound />} />
+						</Routes>
+					</Grid>
+					<Grid item container xs>
+						<Footer />
+					</Grid>
 				</BrowserRouter>
-				<Footer />
 			</DeviceContext.Provider>
 		</Grid>
 	);

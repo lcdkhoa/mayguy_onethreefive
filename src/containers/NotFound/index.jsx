@@ -1,5 +1,5 @@
 function NotFound() {
-	return <h1>404 - Page Not Found via next pages/404.tsx</h1>;
+	return <h1>404 - Page Not Found under construction</h1>;
 }
 
 export default NotFound;

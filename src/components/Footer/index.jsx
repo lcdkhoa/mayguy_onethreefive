@@ -1,8 +1,9 @@
 import { Grid, Typography } from '@mui/material';
 import moment from 'moment';
 
-const Footer= () => {
+const Footer = () => {
 	const year = moment().year();
+	const footerText = `${year} lcdkhoa. Powered by "Chạy bằng cơm"`;
 	return (
 		<Grid
 			item
@@ -10,10 +11,10 @@ const Footer= () => {
 			container
 			alignContent={'center'}
 			justifyContent={'center'}
-			pt={2}
+			paddingTop={'10px'}
 		>
-			<Typography style={{ fontFamily: "'Montserrat', sans-serif" }}>
-				&copy; {year} lcdkhoa. All rights reserved.
+			<Typography style={{ fontFamily: "'Roboto', sans-serif" }}>
+				{footerText}
 			</Typography>
 		</Grid>
 	);
