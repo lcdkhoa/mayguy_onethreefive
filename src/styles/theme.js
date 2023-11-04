@@ -15,7 +15,7 @@ export const theme = createTheme({
 		},
 		text: {
 			secondary: color.textSecondary,
-			primary: color.primary,
+			primary: color.textMain,
 		},
 		error: {
 			main: color.error,

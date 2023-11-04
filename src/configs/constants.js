@@ -5,13 +5,15 @@ export const sections = [
 		path: '/',
 		element: 'Home',
 		iconsURL: '/images/icons/home.png',
+		webTitle: '🔅 Home',
 	},
 	{
-		title: 'BLOGS',
+		title: 'NOTES',
 		width: '20%',
-		path: '/blogs',
-		element: 'Blogs',
-		iconsURL: '/images/icons/blogs.png',
+		path: '/notes',
+		element: 'Notes',
+		iconsURL: '/images/icons/notes.png',
+		webTitle: '🔅 Notes',
 	},
 	{
 		title: 'TOOLS',
@@ -19,13 +21,15 @@ export const sections = [
 		path: '/tools',
 		element: 'Tools',
 		iconsURL: '/images/icons/tools.png',
+		webTitle: '🔅 Tools',
 	},
 	{
-		title: 'ABOUT ME',
+		title: 'ABOUT',
 		width: '20%',
 		path: '/about',
 		element: 'About',
 		iconsURL: '/images/icons/about.png',
+		webTitle: '🔅 About',
 	},
 ];
 export const backgroundDesktop = ['/images/background1.jpg'];

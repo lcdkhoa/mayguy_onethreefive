@@ -10,4 +10,5 @@ export const color = {
 	snackBarUpdate: '#0288D1',
 	grey: '#969696',
 	loading: '#726F6F',
+	textMain: '#1273AA',
 };
