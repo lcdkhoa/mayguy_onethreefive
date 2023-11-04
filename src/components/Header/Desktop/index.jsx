@@ -5,27 +5,27 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const DesktopHeader = () => {
-	const [title, setTitle] = useState(document.title);
+	const [title, setTitle] = useState('Dang Khoa 🔅 Home');
 
 	const navigate = useNavigate();
 
-	const handleOnClick = (path, title) => {
+	const handleOnClick = (path, title, e) => {
 		setTitle(title);
 		navigate(path);
 	};
 
 	useEffect(() => {
-		document.title = 'Dang Khoa' + title;
+		document.title = title;
 	}, [title]);
 
 	return (
-		<Container maxWidth={'md'}>
+		<Container maxWidth={'sm'}>
 			<Grid
 				item
 				xs
 				container
 				direction={'row'}
-				paddingBottom={'5px'}
+				padding={'5px 0 5px 0'}
 				style={{
 					border: '1px solid #DEE4E7',
 					borderRadius: '30px',
@@ -41,8 +41,6 @@ const DesktopHeader = () => {
 								borderRadius: '20px',
 								border: '1px solid transparent',
 								backgroundColor: 'transparent',
-								transition: 'border 0.3s',
-								margin: '0px 10px',
 								borderBottomColor: 'transparent',
 							}}
 							onMouseEnter={(e) => {
@@ -51,7 +49,7 @@ const DesktopHeader = () => {
 							onMouseLeave={(e) => {
 								e.currentTarget.style.borderBottomColor = 'transparent';
 							}}
-							onClick={() => handleOnClick(section.path, section.webTitle)}
+							onClick={(e) => handleOnClick(section.path, section.webTitle, e)}
 						>
 							<Typography
 								component="span"

@@ -1,11 +1,11 @@
 export const sections = [
 	{
 		title: 'HOME',
-		width: '10%',
+		width: '20%',
 		path: '/',
 		element: 'Home',
 		iconsURL: '/images/icons/home.png',
-		webTitle: '🔅 Home',
+		webTitle: 'Dang Khoa 🔅 Home',
 	},
 	{
 		title: 'NOTES',
@@ -13,7 +13,7 @@ export const sections = [
 		path: '/notes',
 		element: 'Notes',
 		iconsURL: '/images/icons/notes.png',
-		webTitle: '🔅 Notes',
+		webTitle: 'Dang Khoa 🔅 Notes',
 	},
 	{
 		title: 'TOOLS',
@@ -21,7 +21,7 @@ export const sections = [
 		path: '/tools',
 		element: 'Tools',
 		iconsURL: '/images/icons/tools.png',
-		webTitle: '🔅 Tools',
+		webTitle: 'Dang Khoa 🔅 Tools',
 	},
 	{
 		title: 'ABOUT',
@@ -29,7 +29,7 @@ export const sections = [
 		path: '/about',
 		element: 'About',
 		iconsURL: '/images/icons/about.png',
-		webTitle: '🔅 About',
+		webTitle: 'Dang Khoa 🔅 About',
 	},
 ];
 export const backgroundDesktop = ['/images/background1.jpg'];
