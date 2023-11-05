@@ -22,55 +22,53 @@ const DesktopHeader = () => {
 		<Container maxWidth={'sm'}>
 			<Grid
 				item
-				xs
 				container
-				direction={'row'}
-				padding={'5px 0 5px 0'}
+				justifyContent={'center'}
 				style={{
 					border: '1px solid #DEE4E7',
 					borderRadius: '30px',
+					padding: '10px 0px 10px',
+					marginTop: '10px',
 				}}
 			>
-				<Grid item container justifyContent={'center'}>
-					{sections.map((section) => (
-						<Button
-							focusRipple
-							key={section.title}
+				{sections.map((section) => (
+					<Button
+						focusRipple
+						key={section.title}
+						style={{
+							width: section.width,
+							borderRadius: '20px',
+							border: '1px solid transparent',
+							backgroundColor: 'transparent',
+							borderBottomColor: 'transparent',
+						}}
+						onMouseEnter={(e) => {
+							e.currentTarget.style.borderBottomColor = '#95665F';
+						}}
+						onMouseLeave={(e) => {
+							e.currentTarget.style.borderBottomColor = 'transparent';
+						}}
+						onClick={(e) => handleOnClick(section.path, section.webTitle, e)}
+					>
+						<Typography
+							component="span"
+							variant="subtitle1"
+							color="black"
 							style={{
-								width: section.width,
-								borderRadius: '20px',
-								border: '1px solid transparent',
-								backgroundColor: 'transparent',
-								borderBottomColor: 'transparent',
+								fontFamily: "'Montserrat', sans-serif",
+								fontWeight: 'normal',
 							}}
 							onMouseEnter={(e) => {
-								e.currentTarget.style.borderBottomColor = '#95665F';
+								e.currentTarget.style.fontWeight = 'bold';
 							}}
 							onMouseLeave={(e) => {
-								e.currentTarget.style.borderBottomColor = 'transparent';
+								e.currentTarget.style.fontWeight = 'normal';
 							}}
-							onClick={(e) => handleOnClick(section.path, section.webTitle, e)}
 						>
-							<Typography
-								component="span"
-								variant="subtitle1"
-								color="black"
-								style={{
-									fontFamily: "'Montserrat', sans-serif",
-									fontWeight: 'normal',
-								}}
-								onMouseEnter={(e) => {
-									e.currentTarget.style.fontWeight = 'bold';
-								}}
-								onMouseLeave={(e) => {
-									e.currentTarget.style.fontWeight = 'normal';
-								}}
-							>
-								{section.title}
-							</Typography>
-						</Button>
-					))}
-				</Grid>
+							{section.title}
+						</Typography>
+					</Button>
+				))}
 			</Grid>
 		</Container>
 	);

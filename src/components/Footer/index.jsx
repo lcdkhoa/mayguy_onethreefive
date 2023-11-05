@@ -7,15 +7,13 @@ const Footer = () => {
 	return (
 		<Grid
 			item
-			xs
+			xs={1}
 			container
 			alignContent={'center'}
-			justifyContent={'center'}
-			paddingTop={'10px'}
+			justifyContent={'flex-end'}
+			direction={'column'}
 		>
-			<Typography style={{ fontFamily: "'Roboto', sans-serif" }}>
-				{footerText}
-			</Typography>
+			<Typography>{footerText}</Typography>
 		</Grid>
 	);
 };

@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 
 const NotFound = () => {
 	return (
-		<Grid item container height={innerHeight * 0.8}>
+		<Grid item container xs>
 			<Grid item container justifyContent={'center'} alignContent={'flex-end'}>
 				<Typography variant="h1" color="#1273AA">
 					Whoops

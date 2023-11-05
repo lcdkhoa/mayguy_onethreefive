@@ -32,7 +32,6 @@ const MainContent = () => {
 	};
 	const styles = {
 		imageContainer: {
-			height: `${innerHeight * 0.8}px`,
 			borderColor: '#DEE4E7',
 			borderRadius: '10px',
 			backgroundSize: 'cover',
@@ -51,6 +50,7 @@ const MainContent = () => {
 				container
 				direction={'row'}
 				border={5}
+				xs={12}
 				sx={styles.imageContainer}
 			></Grid>
 		</>

@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 const Hi = () => {
 	const theme = useTheme();
 	return (
-		<Grid item container height={innerHeight * 0.8} direction={'column'}>
+		<Grid item container direction={'column'} xs>
 			<Grid
 				item
 				container

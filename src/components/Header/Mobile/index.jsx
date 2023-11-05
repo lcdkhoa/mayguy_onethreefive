@@ -34,14 +34,7 @@ const MobileHeader = () => {
 
 	return (
 		<Grid item xs container direction={'column'} padding={'10px 0px 10px'}>
-			<Grid
-				item
-				xs={12}
-				width={'100%'}
-				container
-				direction="row"
-				alignItems={'center'}
-			>
+			<Grid item width={'100%'} container direction="row" alignItems={'center'}>
 				<Button
 					onClick={handleClick}
 					style={{ justifyContent: 'flex-start', minWidth: 0 }}

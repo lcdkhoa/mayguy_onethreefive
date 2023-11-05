@@ -11,9 +11,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
 	const isMobile = /iPhone|Android/i.test(navigator.userAgent);
-
 	return (
-		<Grid direction="column" wrap="nowrap" container>
+		<Grid direction="column" container height={window.innerHeight}>
 			<DeviceContext.Provider value={isMobile}>
 				<BrowserRouter>
 					<Header />
