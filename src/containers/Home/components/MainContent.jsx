@@ -1,59 +1,67 @@
 import DeviceContext from '@/components/DetectDevice';
-import { backgroundDesktop, backgroundMobile } from '@/configs/constants';
-import { Grid } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { Grid, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useContext } from 'react';
 
 const MainContent = () => {
-	const [background, setBackground] = useState([]);
+	const theme = useTheme();
 	let isMobileDevice = useContext(DeviceContext);
-
-	useEffect(() => {
-		isMobileDevice
-			? setBackground(backgroundMobile)
-			: setBackground(backgroundDesktop);
-	}, [isMobileDevice]);
-
-	const createKeyframes = () => {
-		const keyframes = background.map(
-			(image, index) => `
-        ${(index / background.length) * 100}% {
-          background-image: url(${image});
-          opacity: 1;
-        }
-      `
-		);
-		return `@keyframes changeBackground {
-      ${keyframes.join('\n')}
-      100% {
-        background-image: url(${background[0]});
-        opacity: 1;
-      }
-    }`;
-	};
-	const styles = {
-		imageContainer: {
-			borderColor: '#DEE4E7',
-			borderRadius: '10px',
-			backgroundSize: 'cover',
-			backgroundRepeat: 'no-repeat',
-			backgroundPosition: 'center',
-			animation: `changeBackground 10s infinite`,
-		},
-	};
-
 	return (
-		<>
-			<style>{createKeyframes()}</style>
+		<Grid item container direction={'row'} xs>
 			<Grid
-				margin={'10px 0 10px 0'}
 				item
 				container
-				direction={'row'}
-				border={5}
+				justifyContent={'center'}
+				alignContent={'flex-end'}
 				xs={12}
-				sx={styles.imageContainer}
-			></Grid>
-		</>
+			>
+				<Typography
+					variant={!isMobileDevice ? 'h1' : 'h3'}
+					color={theme.palette.text.primary}
+				>
+					Hi. I'm Dang Khoa
+				</Typography>
+			</Grid>
+			<Grid
+				item
+				container
+				justifyContent={'center'}
+				alignContent={'flex-start'}
+				xs={12}
+			>
+				<Typography
+					variant={!isMobileDevice ? 'h1' : 'h3'}
+					color={theme.palette.text.primary}
+				>
+					A Web Developer
+				</Typography>
+			</Grid>
+			<Grid
+				item
+				container
+				justifyContent={'center'}
+				alignContent={'flex-start'}
+				xs={12}
+			>
+				<Typography
+					variant={!isMobileDevice ? 'h2' : 'body1'}
+					color={theme.palette.text.primary}
+				>
+					Welcome to my Home !
+				</Typography>
+			</Grid>
+			<Grid
+				item
+				container
+				justifyContent={'center'}
+				alignContent={'flex-start'}
+				xs={12}
+			>
+				<Typography variant="body1" color={theme.palette.text.primary}>
+					And it is being built ...
+				</Typography>
+			</Grid>
+		</Grid>
 	);
 };
 

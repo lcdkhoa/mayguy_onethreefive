@@ -33,70 +33,67 @@ const MobileHeader = () => {
 	}, [isMobileDevice]);
 
 	return (
-		<Grid item xs container direction={'column'} padding={'10px 0px 10px'}>
-			<Grid item width={'100%'} container direction="row" alignItems={'center'}>
-				<Button
-					onClick={handleClick}
-					style={{ justifyContent: 'flex-start', minWidth: 0 }}
-				>
-					<MenuIcon></MenuIcon>
-				</Button>
-				<Menu
-					id="dropdown-menu"
-					anchorEl={anchorEl}
-					open={open}
-					onClose={handleClose}
-				>
-					{sections.map((section) => (
-						<MenuItem
-							key={section.title}
-							style={{ justifyContent: 'flex-start' }}
+		<Grid item container direction="row" alignItems={'center'}>
+			<Button
+				onClick={handleClick}
+				style={{ justifyContent: 'flex-start', minWidth: 0 }}
+			>
+				<MenuIcon></MenuIcon>
+			</Button>
+			<Menu
+				id="dropdown-menu"
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+			>
+				{sections.map((section) => (
+					<MenuItem
+						key={section.title}
+						style={{ justifyContent: 'flex-start' }}
+					>
+						<Button
+							style={{
+								minWidth: 150,
+							}}
 						>
-							<Button
+							<Typography
+								gutterBottom
+								component="span"
+								variant="body1"
+								color="black"
 								style={{
-									minWidth: 150,
+									fontFamily: "'Montserrat', sans-serif",
 								}}
+								onClick={() => handleOnClick(section.path)}
 							>
-								<Typography
-									gutterBottom
-									component="span"
-									variant="body1"
-									color="black"
-									style={{
-										fontFamily: "'Montserrat', sans-serif",
-									}}
-									onClick={() => handleOnClick(section.path)}
-								>
-									{section.title}
-								</Typography>
-							</Button>
-						</MenuItem>
-					))}
-				</Menu>
+								{section.title}
+							</Typography>
+						</Button>
+					</MenuItem>
+				))}
+			</Menu>
+			<Typography
+				color={'black'}
+				variant={'body1'}
+				style={{
+					alignContent: 'center',
+				}}
+			>
+				Welcome to
+			</Typography>
+			<Grid item xs={12} container style={{ justifyContent: 'center' }}>
 				<Typography
 					color={'black'}
-					variant={'body1'}
+					variant={innerWidth < 380 ? 'h5' : 'h4'}
+					className={`zoom-in ${isHovered ? 'pointer' : ''}`}
+					onMouseEnter={() => setIsHovered(true)}
+					onMouseLeave={() => setIsHovered(false)}
 					style={{
-						alignContent: 'center',
 						fontFamily: "'Montserrat', sans-serif",
 					}}
 				>
-					Welcome to
+					Dang Khoa&#39;s Home
 				</Typography>
-				<Grid item xs={12} container style={{ justifyContent: 'center' }}>
-					<Typography
-						color={'black'}
-						variant={innerWidth < 380 ? 'h5' : 'h4'}
-						className={`zoom-in ${isHovered ? 'pointer' : ''}`}
-						onMouseEnter={() => setIsHovered(true)}
-						onMouseLeave={() => setIsHovered(false)}
-						style={{
-							fontFamily: "'Montserrat', sans-serif",
-						}}
-					>
-						Dang Khoa&#39;s Home
-					</Typography>
-				</Grid>
 			</Grid>
 		</Grid>
 	);

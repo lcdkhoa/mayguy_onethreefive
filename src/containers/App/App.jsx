@@ -7,10 +7,11 @@ import NotFound from '@/containers/NotFound';
 import Notes from '@/containers/Notes';
 import Tools from '@/containers/Tools';
 import { Grid } from '@mui/material';
+import { useMediaQuery } from 'react-responsive';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-	const isMobile = /iPhone|Android/i.test(navigator.userAgent);
+	const isMobile = useMediaQuery({ maxWidth: 768 });
 	return (
 		<Grid direction="column" container height={window.innerHeight}>
 			<DeviceContext.Provider value={isMobile}>

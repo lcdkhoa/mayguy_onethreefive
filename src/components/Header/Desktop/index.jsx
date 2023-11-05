@@ -28,7 +28,7 @@ const DesktopHeader = () => {
 					border: '1px solid #DEE4E7',
 					borderRadius: '30px',
 					padding: '10px 0px 10px',
-					marginTop: '10px',
+					marginTop: '2vh',
 				}}
 			>
 				{sections.map((section) => (
