@@ -6,6 +6,7 @@ export const sections = [
 		element: 'Home',
 		iconsURL: '/images/icons/home.png',
 		webTitle: 'Dang Khoa 🔅 Home',
+		isSelected: false,
 	},
 	{
 		title: 'NOTES',
@@ -14,6 +15,7 @@ export const sections = [
 		element: 'Notes',
 		iconsURL: '/images/icons/notes.png',
 		webTitle: 'Dang Khoa 🔅 Notes',
+		isSelected: false,
 	},
 	{
 		title: 'TOOLS',
@@ -22,6 +24,7 @@ export const sections = [
 		element: 'Tools',
 		iconsURL: '/images/icons/tools.png',
 		webTitle: 'Dang Khoa 🔅 Tools',
+		isSelected: false,
 	},
 	{
 		title: 'ABOUT',
@@ -30,6 +33,7 @@ export const sections = [
 		element: 'About',
 		iconsURL: '/images/icons/about.png',
 		webTitle: 'Dang Khoa 🔅 About',
+		isSelected: false,
 	},
 ];
 export const backgroundDesktop = ['/images/background1.jpg'];

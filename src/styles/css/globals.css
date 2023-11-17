@@ -44,3 +44,8 @@ h6,
 .footer {
   font-family: 'Roboto', sans-serif;
 }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}

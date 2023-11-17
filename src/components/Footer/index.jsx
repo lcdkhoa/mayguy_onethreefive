@@ -12,6 +12,7 @@ const Footer = () => {
 			alignContent={'center'}
 			justifyContent={'flex-end'}
 			direction={'column'}
+			pb={2}
 		>
 			<Typography>{footerText}</Typography>
 		</Grid>
