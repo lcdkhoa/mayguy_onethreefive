@@ -13,7 +13,7 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ToolCardList } from './configs/constants';
@@ -21,6 +21,8 @@ import { ToolCardList } from './configs/constants';
 export default function Tools() {
 	const [open, setOpen] = useState(false);
 	const [text, setText] = useState('');
+	const [inputText, setInputText] = useState('Add input_');
+	const [outputText, setOutputText] = useState('Add output_');
 
 	const {
 		register,
@@ -35,21 +37,43 @@ export default function Tools() {
 	};
 
 	const handleAddInput = () => {
-		const obj = JSON.parse(text);
-		Object.keys(obj).forEach((key) => {
-			obj['input_' + key] = obj[key];
-			delete obj[key];
-		});
-		setText(JSON.stringify(obj, null, 2));
+		if (inputText === 'Add input_') {
+			setInputText('Remove input_');
+			const obj = JSON.parse(text);
+			Object.keys(obj).forEach((key) => {
+				obj['input_' + key] = obj[key];
+				delete obj[key];
+			});
+			setText(JSON.stringify(obj, null, 2));
+		} else {
+			setInputText('Add input_');
+			const obj = JSON.parse(text);
+			Object.keys(obj).forEach((key) => {
+				obj[key.replace('input_', '')] = obj[key];
+				delete obj[key];
+			});
+			setText(JSON.stringify(obj, null, 2));
+		}
 	};
 
 	const handleAddOutput = () => {
-		const obj = JSON.parse(text);
-		Object.keys(obj).forEach((key) => {
-			obj['output_' + key] = obj[key];
-			delete obj[key];
-		});
-		setText(JSON.stringify(obj, null, 2));
+		if (outputText === 'Add output_') {
+			setOutputText('Remove output_');
+			const obj = JSON.parse(text);
+			Object.keys(obj).forEach((key) => {
+				obj['output_' + key] = obj[key];
+				delete obj[key];
+			});
+			setText(JSON.stringify(obj, null, 2));
+		} else {
+			setOutputText('Add output_');
+			const obj = JSON.parse(text);
+			Object.keys(obj).forEach((key) => {
+				obj[key.replace('output_', '')] = obj[key];
+				delete obj[key];
+			});
+			setText(JSON.stringify(obj, null, 2));
+		}
 	};
 
 	const handleFlaten = () => {
@@ -187,7 +211,7 @@ export default function Tools() {
 									variant="text"
 									sx={{ marginRight: 1 }}
 								>
-									Add input_
+									{inputText}
 								</Button>
 								<Button
 									onClick={() => handleAddOutput()}
@@ -195,7 +219,7 @@ export default function Tools() {
 									variant="text"
 									sx={{ marginRight: 1 }}
 								>
-									Add output_
+									{outputText}
 								</Button>
 							</Grid>
 							<Grid item xs={2} container justifyContent={'flex-end'}>
