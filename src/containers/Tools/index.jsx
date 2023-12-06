@@ -34,10 +34,28 @@ export default function Tools() {
 		setText('');
 	};
 
+	const handleAddInput = () => {
+		const obj = JSON.parse(text);
+		Object.keys(obj).forEach((key) => {
+			obj['input_' + key] = obj[key];
+			delete obj[key];
+		});
+		setText(JSON.stringify(obj, null, 2));
+	};
+
+	const handleAddOutput = () => {
+		const obj = JSON.parse(text);
+		Object.keys(obj).forEach((key) => {
+			obj['output_' + key] = obj[key];
+			delete obj[key];
+		});
+		setText(JSON.stringify(obj, null, 2));
+	};
+
 	const handleFlaten = () => {
 		try {
 			const obj = JSON.parse(text);
-			const flatJson = JSON.stringify(FlattenObjects(obj));
+			const flatJson = JSON.stringify(FlattenObjects(obj), null, 2);
 			setText(flatJson);
 		} catch (error) {
 			setText('Invalid JSON input.');
@@ -47,7 +65,7 @@ export default function Tools() {
 	const handleUnflatten = () => {
 		try {
 			const obj = JSON.parse(text);
-			const unflatJson = JSON.stringify(UnflattenObjects(obj, '_'));
+			const unflatJson = JSON.stringify(UnflattenObjects(obj, '_'), null, 2);
 			setText(unflatJson);
 		} catch (error) {
 			setText('Invalid JSON input.');
@@ -137,7 +155,7 @@ export default function Tools() {
 					</DialogContent>
 					<DialogActions>
 						<Grid item container direction={'row'}>
-							<Grid item xs={3} container justifyContent={'flex-start'}>
+							<Grid item xs={2} container justifyContent={'flex-start'}>
 								<Button
 									variant="contained"
 									color="primary"
@@ -150,34 +168,46 @@ export default function Tools() {
 								<Button
 									onClick={() => handleUnflatten()}
 									color="primary"
-									variant="contained"
+									variant="text"
 									sx={{ marginRight: 1 }}
 								>
-									Convert to Nested JSON
+									Convert to Nested
 								</Button>
 								<Button
 									onClick={() => handleFlaten()}
 									color="primary"
-									variant="contained"
+									variant="text"
 									sx={{ marginRight: 1 }}
 								>
-									Convert to Flat JSON
+									Convert to Flat
+								</Button>
+								<Button
+									onClick={() => handleAddInput()}
+									color="primary"
+									variant="text"
+									sx={{ marginRight: 1 }}
+								>
+									Add input_
+								</Button>
+								<Button
+									onClick={() => handleAddOutput()}
+									color="primary"
+									variant="text"
+									sx={{ marginRight: 1 }}
+								>
+									Add output_
 								</Button>
 							</Grid>
-							<Grid item xs={3} container justifyContent={'flex-end'}>
+							<Grid item xs={2} container justifyContent={'flex-end'}>
 								<Button
 									onClick={() => handleCopy()}
 									color="primary"
-									variant="contained"
+									variant="text"
 									sx={{ marginRight: 1 }}
 								>
 									Copy
 								</Button>
-								<Button
-									onClick={handleClose}
-									color="primary"
-									variant="contained"
-								>
+								<Button onClick={handleClose} color="primary" variant="text">
 									Close
 								</Button>
 							</Grid>
