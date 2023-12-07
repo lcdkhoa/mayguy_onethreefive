@@ -14,6 +14,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
+import ReactGA from 'react-ga4';
 import { useForm } from 'react-hook-form';
 
 import { ToolCardList } from './configs/constants';
@@ -23,6 +24,21 @@ export default function Tools() {
 	const [text, setText] = useState('');
 	const [inputText, setInputText] = useState('Add input_');
 	const [outputText, setOutputText] = useState('Add output_');
+
+	useEffect(() => {
+		ReactGA.send({
+			hitType: 'pageview',
+			page: location.pathname,
+			title: 'Tools',
+		});
+	}, []);
+
+	useEffect(() => {
+		ReactGA.event({
+			category: 'Tools',
+			action: 'Click on Object Handler',
+		});
+	}, [open]);
 
 	const {
 		register,
