@@ -7,7 +7,7 @@ const FlattenObjects = ((isArray, wrapped) => {
 				let index = 0;
 
 				while (index < length) {
-					const property = `${path}[${index}]`;
+					const property = `${path}${index}`;
 					const item = table[index];
 					index += 1;
 					if (wrapped(item) !== item) accumulator[property] = item;
@@ -46,7 +46,7 @@ const UnflattenObjects = (json: any, keySplit: string) => {
 		let current = result as any;
 		const parts = key.split(keySplit);
 		parts.forEach((part, i) => {
-			const isArray = /^([^\\[]+)\[(\d+)\]$/.exec(part);
+			const isArray = /^([^\\[]+)(\d+)$/.exec(part);
 			if (isArray) {
 				const arrKey = isArray[1];
 				const arrIndex = parseInt(isArray[2]);
