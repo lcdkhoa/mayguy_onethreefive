@@ -1,15 +1,14 @@
 import { FlattenObjects, UnflattenObjects } from '@/utils/object-handler';
+import MonacoEditor from '@monaco-editor/react';
 import {
 	Button,
 	Dialog,
 	DialogActions,
 	DialogContent,
-	Grid,
-	TextField,
+	Grid, // TextField,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 
 ObjectHandler.propTypes = {
 	open: PropTypes.bool.isRequired,
@@ -26,13 +25,6 @@ export default function ObjectHandler({ ...props }) {
 		setOpen(false);
 		setText('');
 	};
-
-	const {
-		register,
-		// formState: { errors, isDirty },
-	} = useForm({
-		defaultValues: '',
-	});
 
 	const handleAddInput = () => {
 		if (inputText === 'Add input_') {
@@ -75,6 +67,7 @@ export default function ObjectHandler({ ...props }) {
 	};
 
 	const handleFlaten = () => {
+		console.log('handleFlaten');
 		try {
 			const obj = JSON.parse(text);
 			const flatJson = JSON.stringify(FlattenObjects(obj), null, 2);
@@ -102,6 +95,27 @@ export default function ObjectHandler({ ...props }) {
 		}
 	};
 
+	// const handlePaste = async () => {
+	// 	try {
+	// 		const text = await navigator.clipboard.readText();
+	// 		const obj = JSON.parse(text);
+	// 		const prettyJson = JSON.stringify(obj, null, 2);
+	// 		setText(prettyJson);
+	// 	} catch (err) {
+	// 		setText(err);
+	// 	}
+	// };
+
+	// const handleSelect = (event) => {
+	// 	const textarea = event.target;
+	// 	const cursorPosition = textarea.selectionStart;
+	// 	const lineNumber = textarea.value
+	// 		.substring(0, cursorPosition)
+	// 		.split('\n').length;
+	// 	console.log(lineNumber);
+	// 	setSelectedLines(selectedLines);
+	// };
+
 	const handlePrettyPrint = () => {
 		try {
 			const obj = JSON.parse(text);
@@ -110,6 +124,10 @@ export default function ObjectHandler({ ...props }) {
 		} catch (error) {
 			setText('Invalid JSON input.');
 		}
+	};
+
+	const handleOnchange = (e) => {
+		setText(e);
 	};
 
 	return (
@@ -123,21 +141,43 @@ export default function ObjectHandler({ ...props }) {
 				aria-labelledby="responsive-dialog-title"
 			>
 				<DialogContent sx={{ maxHeight: '60vh' }}>
-					<TextField
+					{/* <TextField
 						name="handler"
 						hiddenLabel
 						autoFocus
 						multiline
 						fullWidth
+						minRows={10}
 						value={text}
 						scroll={'body'}
+						// onPaste={handlePaste}
+						onSelect={handleSelect}
 						{...register('handler', {
 							required: false,
 							onChange: (e) => {
 								setText(e.target.value);
 							},
 						})}
-					></TextField>
+					></TextField> */}
+					<MonacoEditor
+						height="60vh"
+						theme="vs-light"
+						defaultLanguage="json"
+						defaultValue={text}
+						onChange={(e) => {
+							handleOnchange(e);
+						}}
+						value={text}
+						options={{
+							automaticLayout: true,
+							autoIndent: 'full',
+							formatOnPaste: true,
+							formatOnType: true,
+							minimap: { enabled: false },
+							wordWrap: 'off',
+							quickSuggestions: true,
+						}}
+					/>
 				</DialogContent>
 				<DialogActions>
 					<Grid item container direction={'row'}>
