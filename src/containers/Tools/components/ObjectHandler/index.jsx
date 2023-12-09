@@ -1,12 +1,6 @@
 import { FlattenObjects, UnflattenObjects } from '@/utils/object-handler';
 import MonacoEditor from '@monaco-editor/react';
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	Grid, // TextField,
-} from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
@@ -116,16 +110,6 @@ export default function ObjectHandler({ ...props }) {
 	// 	setSelectedLines(selectedLines);
 	// };
 
-	const handlePrettyPrint = () => {
-		try {
-			const obj = JSON.parse(text);
-			const prettyJson = JSON.stringify(obj, null, 2);
-			setText(prettyJson);
-		} catch (error) {
-			setText('Invalid JSON input.');
-		}
-	};
-
 	const handleOnchange = (e) => {
 		setText(e);
 	};
@@ -140,7 +124,7 @@ export default function ObjectHandler({ ...props }) {
 				onClose={handleClose}
 				aria-labelledby="responsive-dialog-title"
 			>
-				<DialogContent sx={{ maxHeight: '60vh' }}>
+				<DialogContent>
 					{/* <TextField
 						name="handler"
 						hiddenLabel
@@ -160,7 +144,7 @@ export default function ObjectHandler({ ...props }) {
 						})}
 					></TextField> */}
 					<MonacoEditor
-						height="60vh"
+						height={'60vh'}
 						theme="vs-light"
 						defaultLanguage="json"
 						defaultValue={text}
@@ -179,65 +163,50 @@ export default function ObjectHandler({ ...props }) {
 						}}
 					/>
 				</DialogContent>
-				<DialogActions>
-					<Grid item container direction={'row'}>
-						<Grid item xs={2} container justifyContent={'flex-start'}>
-							<Button
-								variant="contained"
-								color="primary"
-								onClick={handlePrettyPrint}
-							>
-								Pretty Print
-							</Button>
-						</Grid>
-						<Grid item xs container justifyContent={'center'}>
-							<Button
-								onClick={() => handleUnflatten()}
-								color="primary"
-								variant="text"
-								sx={{ marginRight: 1 }}
-							>
-								Convert to Nested
-							</Button>
-							<Button
-								onClick={() => handleFlaten()}
-								color="primary"
-								variant="text"
-								sx={{ marginRight: 1 }}
-							>
-								Convert to Flat
-							</Button>
-							<Button
-								onClick={() => handleAddInput()}
-								color="primary"
-								variant="text"
-								sx={{ marginRight: 1 }}
-							>
-								{inputText}
-							</Button>
-							<Button
-								onClick={() => handleAddOutput()}
-								color="primary"
-								variant="text"
-								sx={{ marginRight: 1 }}
-							>
-								{outputText}
-							</Button>
-						</Grid>
-						<Grid item xs={2} container justifyContent={'flex-end'}>
-							<Button
-								onClick={() => handleCopy()}
-								color="primary"
-								variant="text"
-								sx={{ marginRight: 1 }}
-							>
-								Copy
-							</Button>
-							<Button onClick={handleClose} color="primary" variant="text">
-								Close
-							</Button>
-						</Grid>
-					</Grid>
+				<DialogActions sx={{ justifyContent: 'center' }}>
+					<Button
+						onClick={() => handleUnflatten()}
+						color="primary"
+						variant="outlined"
+						sx={{ marginRight: 1 }}
+					>
+						Convert to Nested
+					</Button>
+					<Button
+						onClick={() => handleFlaten()}
+						color="primary"
+						variant="outlined"
+						sx={{ marginRight: 1 }}
+					>
+						Convert to Flat
+					</Button>
+					<Button
+						onClick={() => handleAddInput()}
+						color="primary"
+						variant="outlined"
+						sx={{ marginRight: 1 }}
+					>
+						{inputText}
+					</Button>
+					<Button
+						onClick={() => handleAddOutput()}
+						color="primary"
+						variant="outlined"
+						sx={{ marginRight: 1 }}
+					>
+						{outputText}
+					</Button>
+					{/* <Button
+						onClick={() => handleCopy()}
+						color="primary"
+						variant="outlined"
+						sx={{ marginRight: 1 }}
+					>
+						Copy
+					</Button> */}
+					<Button onClick={handleClose} color="primary" variant="outlined">
+						Close
+					</Button>
 				</DialogActions>
 			</Dialog>
 		</form>
