@@ -1,6 +1,15 @@
 import { FlattenObjects, UnflattenObjects } from '@/utils/object-handler';
 import MonacoEditor from '@monaco-editor/react';
-import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	Divider,
+	Grid,
+	alpha,
+	styled,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
@@ -8,6 +17,19 @@ ObjectHandler.propTypes = {
 	open: PropTypes.bool.isRequired,
 	setOpen: PropTypes.func.isRequired,
 };
+
+const HandlerButton = styled(Button)(({ theme }) => ({
+	width: 'auto',
+	borderRadius: 50,
+	border: '1px solid',
+	color: theme.palette.primary.main,
+	transition: 'transform 0.3s ease, border-color 0.3s ease',
+	marginRight: 10,
+	marginLeft: 10,
+	'&:hover': {
+		transform: 'scale(1.1)',
+	},
+}));
 
 export default function ObjectHandler({ ...props }) {
 	const { open, setOpen } = props;
@@ -60,8 +82,8 @@ export default function ObjectHandler({ ...props }) {
 		}
 	};
 
-	const handleFlaten = () => {
-		console.log('handleFlaten');
+	const handleFlatten = () => {
+		console.log('handleFlatten');
 		try {
 			const obj = JSON.parse(text);
 			const flatJson = JSON.stringify(FlattenObjects(obj), null, 2);
@@ -74,41 +96,12 @@ export default function ObjectHandler({ ...props }) {
 	const handleUnflatten = () => {
 		try {
 			const obj = JSON.parse(text);
-			const unflatJson = JSON.stringify(UnflattenObjects(obj, '_'), null, 2);
-			setText(unflatJson);
+			const unflattenJson = JSON.stringify(UnflattenObjects(obj, '_'), null, 2);
+			setText(unflattenJson);
 		} catch (error) {
 			setText('Invalid JSON input.');
 		}
 	};
-
-	const handleCopy = async () => {
-		try {
-			await navigator.clipboard.writeText(text);
-		} catch (err) {
-			console.error('Failed to copy: ', err);
-		}
-	};
-
-	// const handlePaste = async () => {
-	// 	try {
-	// 		const text = await navigator.clipboard.readText();
-	// 		const obj = JSON.parse(text);
-	// 		const prettyJson = JSON.stringify(obj, null, 2);
-	// 		setText(prettyJson);
-	// 	} catch (err) {
-	// 		setText(err);
-	// 	}
-	// };
-
-	// const handleSelect = (event) => {
-	// 	const textarea = event.target;
-	// 	const cursorPosition = textarea.selectionStart;
-	// 	const lineNumber = textarea.value
-	// 		.substring(0, cursorPosition)
-	// 		.split('\n').length;
-	// 	console.log(lineNumber);
-	// 	setSelectedLines(selectedLines);
-	// };
 
 	const handleOnchange = (e) => {
 		setText(e);
@@ -125,24 +118,6 @@ export default function ObjectHandler({ ...props }) {
 				aria-labelledby="responsive-dialog-title"
 			>
 				<DialogContent>
-					{/* <TextField
-						name="handler"
-						hiddenLabel
-						autoFocus
-						multiline
-						fullWidth
-						minRows={10}
-						value={text}
-						scroll={'body'}
-						// onPaste={handlePaste}
-						onSelect={handleSelect}
-						{...register('handler', {
-							required: false,
-							onChange: (e) => {
-								setText(e.target.value);
-							},
-						})}
-					></TextField> */}
 					<MonacoEditor
 						height={'60vh'}
 						theme="vs-light"
@@ -163,51 +138,30 @@ export default function ObjectHandler({ ...props }) {
 						}}
 					/>
 				</DialogContent>
-				<DialogActions sx={{ justifyContent: 'center' }}>
-					<Button
-						onClick={() => handleUnflatten()}
-						color="primary"
-						variant="outlined"
-						sx={{ marginRight: 1 }}
-					>
+				<Divider />
+				<Grid
+					item
+					container
+					direction={'row'}
+					justifyContent={'center'}
+					paddingBottom={2}
+					paddingTop={2}
+					xs={12}
+				>
+					<HandlerButton onClick={() => handleUnflatten()}>
 						Convert to Nested
-					</Button>
-					<Button
-						onClick={() => handleFlaten()}
-						color="primary"
-						variant="outlined"
-						sx={{ marginRight: 1 }}
-					>
+					</HandlerButton>
+					<HandlerButton onClick={() => handleFlatten()}>
 						Convert to Flat
-					</Button>
-					<Button
-						onClick={() => handleAddInput()}
-						color="primary"
-						variant="outlined"
-						sx={{ marginRight: 1 }}
-					>
+					</HandlerButton>
+					<HandlerButton onClick={() => handleAddInput()}>
 						{inputText}
-					</Button>
-					<Button
-						onClick={() => handleAddOutput()}
-						color="primary"
-						variant="outlined"
-						sx={{ marginRight: 1 }}
-					>
+					</HandlerButton>
+					<HandlerButton onClick={() => handleAddOutput()}>
 						{outputText}
-					</Button>
-					{/* <Button
-						onClick={() => handleCopy()}
-						color="primary"
-						variant="outlined"
-						sx={{ marginRight: 1 }}
-					>
-						Copy
-					</Button> */}
-					<Button onClick={handleClose} color="primary" variant="outlined">
-						Close
-					</Button>
-				</DialogActions>
+					</HandlerButton>
+					<HandlerButton onClick={handleClose}>Close</HandlerButton>
+				</Grid>
 			</Dialog>
 		</form>
 	);
