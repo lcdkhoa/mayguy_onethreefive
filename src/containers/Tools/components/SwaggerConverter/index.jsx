@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-ObjectHandler.propTypes = {
+SwaggerConverter.propTypes = {
 	open: PropTypes.bool.isRequired,
 	close: PropTypes.func.isRequired,
 	index: PropTypes.number.isRequired,
@@ -30,7 +30,7 @@ const HandlerButton = styled(Button)(({ theme }) => ({
 	},
 }));
 
-export default function ObjectHandler({ ...props }) {
+export default function SwaggerConverter({ ...props }) {
 	const { open, close, index } = props;
 	const [text, setText] = useState('');
 	const [inputText, setInputText] = useState('Add input_');

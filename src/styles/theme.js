@@ -21,6 +21,7 @@ export const theme = createTheme({
 			main: color.error,
 		},
 	},
+	// breakpoints: { values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 } },
 	// typography: {
 	// 	htmlFontSize: 10, // this is the standard measurement, so that 1rem = 10px for easy dev
 	// },

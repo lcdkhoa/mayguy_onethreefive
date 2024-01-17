@@ -2,8 +2,8 @@ import { Grid } from '@mui/material';
 
 const App = () => {
 	return (
-		<Grid xs item container alignContent={'center'} justifyContent={'center'}>
-			Under construction Blog...
+		<Grid container alignContent={'center'} justifyContent={'center'}>
+			<Grid item>Under construction Blog...</Grid>
 		</Grid>
 	);
 };

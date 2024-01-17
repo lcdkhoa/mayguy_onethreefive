@@ -1,7 +1,7 @@
 export const sections = [
 	{
 		title: 'HOME',
-		width: '20%',
+		width: '10%',
 		path: '/',
 		element: 'Home',
 		iconsURL: '/images/icons/home.png',
@@ -10,7 +10,7 @@ export const sections = [
 	},
 	{
 		title: 'NOTES',
-		width: '20%',
+		width: '10%',
 		path: '/notes',
 		element: 'Notes',
 		iconsURL: '/images/icons/notes.png',
@@ -19,7 +19,7 @@ export const sections = [
 	},
 	{
 		title: 'TOOLS',
-		width: '20%',
+		width: '10%',
 		path: '/tools',
 		element: 'Tools',
 		iconsURL: '/images/icons/tools.png',
@@ -28,7 +28,7 @@ export const sections = [
 	},
 	{
 		title: 'ABOUT',
-		width: '20%',
+		width: '10%',
 		path: '/about',
 		element: 'About',
 		iconsURL: '/images/icons/about.png',

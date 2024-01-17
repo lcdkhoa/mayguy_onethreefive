@@ -1,15 +1,17 @@
 import { sections } from '@/configs/constants';
 import '@/styles/css/header.css';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const DesktopHeader = () => {
 	const [title, setTitle] = useState('Dang Khoa 🔅 Home');
+	const theme = useTheme();
 
 	const navigate = useNavigate();
 
-	const handleOnClick = (path, title, e) => {
+	const handleOnClick = (path, title) => {
 		setTitle(title);
 		navigate(path);
 	};
@@ -19,58 +21,47 @@ const DesktopHeader = () => {
 	}, [title]);
 
 	return (
-		<Container maxWidth={'sm'}>
-			<Grid
-				item
-				container
-				justifyContent={'center'}
-				style={{
-					border: '1px solid #DEE4E7',
-					borderRadius: '30px',
-					padding: '10px 0px 10px',
-					marginTop: '2vh',
-				}}
-			>
-				{sections.map((section) => (
-					<Button
-						focusRipple
-						key={section.title}
+		<Grid
+			item
+			container
+			style={{
+				padding: '10px 0px 10px',
+				justifyContent: 'flex-end',
+			}}
+		>
+			{sections.map((section) => (
+				<Button
+					focusRipple
+					key={section.title}
+					style={{
+						width: section.width,
+						borderRadius: '20px',
+						border: '1px solid transparent',
+						backgroundColor: 'transparent',
+						borderBottomColor: 'transparent',
+					}}
+					onClick={() => handleOnClick(section.path, section.webTitle)}
+				>
+					<Typography
+						component="span"
+						variant="subtitle1"
+						color={theme.palette.text.primary}
 						style={{
-							width: section.width,
-							borderRadius: '20px',
-							border: '1px solid transparent',
-							backgroundColor: 'transparent',
-							borderBottomColor: 'transparent',
+							fontFamily: "'Montserrat', sans-serif",
+							fontWeight: 'normal',
 						}}
 						onMouseEnter={(e) => {
-							e.currentTarget.style.borderBottomColor = '#95665F';
+							e.currentTarget.style.fontWeight = 'bold';
 						}}
 						onMouseLeave={(e) => {
-							e.currentTarget.style.borderBottomColor = 'transparent';
+							e.currentTarget.style.fontWeight = 'normal';
 						}}
-						onClick={(e) => handleOnClick(section.path, section.webTitle, e)}
 					>
-						<Typography
-							component="span"
-							variant="subtitle1"
-							color="black"
-							style={{
-								fontFamily: "'Montserrat', sans-serif",
-								fontWeight: 'normal',
-							}}
-							onMouseEnter={(e) => {
-								e.currentTarget.style.fontWeight = 'bold';
-							}}
-							onMouseLeave={(e) => {
-								e.currentTarget.style.fontWeight = 'normal';
-							}}
-						>
-							{section.title}
-						</Typography>
-					</Button>
-				))}
-			</Grid>
-		</Container>
+						{section.title}
+					</Typography>
+				</Button>
+			))}
+		</Grid>
 	);
 };
 
