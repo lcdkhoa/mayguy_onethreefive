@@ -7,12 +7,22 @@ const MainContent = () => {
 	let isMobileDevice = useContext(DeviceContext);
 	const theme = useTheme();
 	return (
-		<Grid item container justifyContent={'center'}>
+		<Grid
+			item
+			container
+			justifyContent={'center'}
+			style={{
+				overflow: 'hidden',
+			}}
+		>
 			<Grid item container justifyContent={'center'} xs={12}>
 				<img
 					src="/images/backgrounds/under_construction.png"
 					alt="Under Construction"
-					style={{ width: '70vh' }}
+					style={{
+						objectFit: 'scale-down',
+						height: '75vh',
+					}}
 				/>
 			</Grid>
 			<Typography

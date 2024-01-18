@@ -11,7 +11,7 @@ import { useMediaQuery } from 'react-responsive';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-	const isMobile = useMediaQuery({ maxWidth: 768 });
+	const isMobile = useMediaQuery({ maxWidth: 900 });
 	return (
 		<Container maxWidth="lg" heigh={window.innerHeight}>
 			<Grid item container direction="column">
@@ -22,10 +22,7 @@ function App() {
 							container
 							justifyContent="center"
 							sx={{
-								height: {
-									lg: 'calc(100vh - 96px)',
-									md: 'calc(100vh - 112px)',
-								},
+								height: isMobile ? 'calc(100vh - 112px)' : 'calc(100vh - 96px)',
 								overflow: 'auto',
 							}}
 						>
