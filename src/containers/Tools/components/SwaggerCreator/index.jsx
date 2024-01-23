@@ -1,3 +1,4 @@
+import { ConvertJsonToYaml } from '@/utils/swagger-creator';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
 	Button,
@@ -13,6 +14,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
 
 import { ToolSwaggers } from '../../configs/constants';
 
@@ -37,9 +39,49 @@ const HandlerButton = styled(Button)(({ theme }) => ({
 
 export default function SwaggerCreator({ ...props }) {
 	const { open, close, index } = props;
+	const { register, getValues, watch, setValue } = useForm({
+		defaultValues: {},
+	});
+	const watchAllFields = watch();
+	console.log(watchAllFields);
 
 	const handleClose = () => {
 		close(index);
+	};
+
+	const handleSubmit = () => {
+		const jsonRequest = JSON.parse(getValues('api_input_schema'));
+		const jsonResponse = JSON.parse(getValues('api_output_schema'));
+		const inputUrl = getValues('api_url');
+		const inputTitle = getValues('api_title');
+		const inputDescription = getValues('api_description');
+		const inputVersion = getValues('api_version');
+		const inputMethod = getValues('api_method');
+		const inputPath = getValues('api_path');
+		const jsonInputBadError = JSON.parse(getValues('api_bad_error_schema'));
+		const jsonInputInternalError = JSON.parse(
+			getValues('api_network_error_schema')
+		);
+		const yamlData = ConvertJsonToYaml(
+			jsonRequest,
+			jsonResponse,
+			inputUrl,
+			inputTitle,
+			inputDescription,
+			inputVersion,
+			inputMethod,
+			inputPath,
+			jsonInputBadError,
+			jsonInputInternalError
+		);
+		const blob = new Blob([yamlData], { type: 'text/yaml' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${inputTitle}_swagger.yaml`;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
 	};
 
 	return (
@@ -53,7 +95,7 @@ export default function SwaggerCreator({ ...props }) {
 				aria-labelledby="responsive-dialog-title"
 			>
 				<DialogContent>
-					{ToolSwaggers.map((tool, index) => (
+					{ToolSwaggers.map((tool) => (
 						<Accordion key={tool.id}>
 							<AccordionSummary
 								expandIcon={<ArrowDropDownIcon />}
@@ -68,6 +110,10 @@ export default function SwaggerCreator({ ...props }) {
 									name={tool.name}
 									placeholder={tool.textHolder}
 									fullWidth
+									{...register(tool.name, {
+										required: true,
+										onChange: (e) => setValue(tool.name, e.target.value),
+									})}
 								>
 									{' '}
 								</TextField>
@@ -85,7 +131,9 @@ export default function SwaggerCreator({ ...props }) {
 					paddingTop={2}
 					xs={12}
 				>
-					<HandlerButton onClick={handleClose}>Create Swagger</HandlerButton>
+					<HandlerButton type="submit" onClick={handleSubmit}>
+						Create Swagger
+					</HandlerButton>
 					<HandlerButton onClick={handleClose}>Close</HandlerButton>
 				</Grid>
 			</Dialog>

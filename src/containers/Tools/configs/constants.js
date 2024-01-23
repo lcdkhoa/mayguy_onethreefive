@@ -33,6 +33,20 @@ export const ToolSwaggers = [
 		textHolder: 'https://api.example.com',
 	},
 	{
+		id: 6,
+		title: 'API Path',
+		name: 'api_path',
+		icon: '/images/cards/swagger_converter.png',
+		textHolder: '/example',
+	},
+	{
+		id: 5,
+		title: 'API Method',
+		name: 'api_method',
+		icon: '/images/cards/swagger_converter.png',
+		textHolder: '[GET, POST, PUT, DELETE]',
+	},
+	{
 		id: 2,
 		title: 'API Title',
 		name: 'api_title',
@@ -53,20 +67,7 @@ export const ToolSwaggers = [
 		icon: '/images/cards/swagger_converter.png',
 		textHolder: '1.0.0',
 	},
-	{
-		id: 5,
-		title: 'API Method',
-		name: 'api_method',
-		icon: '/images/cards/swagger_converter.png',
-		textHolder: 'GET, POST, PUT, DELETE',
-	},
-	{
-		id: 6,
-		title: 'API Path',
-		name: 'api_path',
-		icon: '/images/cards/swagger_converter.png',
-		textHolder: '/example',
-	},
+
 	{
 		id: 7,
 		title: 'API Input Schema',
