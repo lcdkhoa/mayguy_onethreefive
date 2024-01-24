@@ -1,13 +1,7 @@
+import HandlerButton from '@/components/HandlerButton';
 import { FlattenObjects, UnflattenObjects } from '@/utils/object-handler';
 import MonacoEditor from '@monaco-editor/react';
-import {
-	Button,
-	Dialog,
-	DialogContent,
-	Divider,
-	Grid,
-	styled,
-} from '@mui/material';
+import { Dialog, DialogContent, Divider, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
@@ -16,19 +10,6 @@ ObjectHandler.propTypes = {
 	close: PropTypes.func.isRequired,
 	index: PropTypes.number.isRequired,
 };
-
-const HandlerButton = styled(Button)(({ theme }) => ({
-	width: 'auto',
-	borderRadius: 50,
-	border: '1px solid',
-	color: theme.palette.primary.main,
-	transition: 'transform 0.3s ease, border-color 0.3s ease',
-	marginRight: 10,
-	marginLeft: 10,
-	'&:hover': {
-		transform: 'scale(1.1)',
-	},
-}));
 
 export default function ObjectHandler({ ...props }) {
 	const { open, close, index } = props;

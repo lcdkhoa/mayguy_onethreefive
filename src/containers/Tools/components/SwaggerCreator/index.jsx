@@ -1,17 +1,18 @@
+import HandlerButton from '@/components/HandlerButton';
 import { ConvertJsonToYaml } from '@/utils/swagger-creator';
+import MonacoEditor from '@monaco-editor/react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
-	Button,
 	Dialog,
 	DialogContent,
 	Divider,
 	Grid,
+	MenuItem,
 	TextField,
 	Typography,
 	styled,
 } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -24,22 +25,24 @@ SwaggerCreator.propTypes = {
 	index: PropTypes.number.isRequired,
 };
 
-const HandlerButton = styled(Button)(({ theme }) => ({
-	width: 'auto',
-	borderRadius: 50,
-	border: '1px solid',
-	color: theme.palette.primary.main,
-	transition: 'transform 0.3s ease, border-color 0.3s ease',
-	marginRight: 10,
-	marginLeft: 10,
-	'&:hover': {
-		transform: 'scale(1.1)',
+const RoundBorderTextField = styled(TextField)(() => ({
+	'& .MuiOutlinedInput-root': {
+		borderRadius: 50,
+	},
+}));
+
+const CustomAccordionSummary = styled(AccordionSummary)(() => ({
+	'& .MuiAccordionSummary-content.Mui-expanded': {
+		margin: 0,
+	},
+	'& .MuiAccordionSummary-content': {
+		margin: 0,
 	},
 }));
 
 export default function SwaggerCreator({ ...props }) {
 	const { open, close, index } = props;
-	const { register, getValues, watch, setValue } = useForm({
+	const { getValues, watch, setValue } = useForm({
 		defaultValues: {},
 	});
 	const watchAllFields = watch();
@@ -97,27 +100,78 @@ export default function SwaggerCreator({ ...props }) {
 				<DialogContent>
 					{ToolSwaggers.map((tool) => (
 						<Accordion key={tool.id}>
-							<AccordionSummary
+							<CustomAccordionSummary
 								expandIcon={<ArrowDropDownIcon />}
 								aria-controls="panel1-content"
 								id={tool.id}
 							>
-								<Typography>{tool.title}</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<TextField
-									id={tool.id + '_text'}
-									name={tool.name}
-									placeholder={tool.textHolder}
-									fullWidth
-									{...register(tool.name, {
-										required: true,
-										onChange: (e) => setValue(tool.name, e.target.value),
-									})}
+								<Grid item container direction={'row'} alignItems={'center'}>
+									<tool.icon fontSize="large" />
+									<Typography
+										sx={{
+											marginLeft: 2,
+										}}
+									>
+										{tool.title}
+									</Typography>
+								</Grid>
+							</CustomAccordionSummary>
+							<Grid
+								item
+								container
+								sx={{
+									padding: 2,
+								}}
+							>
+								<Typography
+									variant={'body'}
+									sx={{
+										marginBottom: 2,
+										marginLeft: 2,
+									}}
 								>
-									{' '}
-								</TextField>
-							</AccordionDetails>
+									{tool.description}
+								</Typography>
+								{tool.jsonRender ? (
+									<MonacoEditor
+										height={'40vh'}
+										theme="vs-light"
+										id={tool.id + '_json'}
+										defaultLanguage="json"
+										name={tool.name}
+										onChange={(value) => {
+											setValue(tool.name, value);
+										}}
+										value={getValues(tool.name)}
+										options={{
+											automaticLayout: true,
+											autoIndent: 'full',
+											formatOnPaste: true,
+											formatOnType: true,
+											minimap: { enabled: false },
+											wordWrap: 'off',
+											quickSuggestions: true,
+										}}
+									/>
+								) : (
+									<RoundBorderTextField
+										id={tool.id + '_text'}
+										name={tool.name}
+										select={tool.hasDropdown}
+										value={getValues(tool.name) || ''}
+										placeholder={tool.textHolder}
+										fullWidth
+										onChange={(e) => setValue(tool.name, e.target.value)}
+									>
+										{tool.hasDropdown &&
+											tool.dropdownValue.map((option) => (
+												<MenuItem key={option.value} value={option.value}>
+													{option.value}
+												</MenuItem>
+											))}
+									</RoundBorderTextField>
+								)}
+							</Grid>
 						</Accordion>
 					))}
 				</DialogContent>
