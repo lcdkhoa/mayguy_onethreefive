@@ -7,7 +7,6 @@ import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 
 const MobileHeader = () => {
-	const [isHovered, setIsHovered] = useState(false);
 	const [isMobileDevice, setIsMobileDevice] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 
@@ -72,29 +71,6 @@ const MobileHeader = () => {
 					</MenuItem>
 				))}
 			</Menu>
-			<Typography
-				color={'black'}
-				variant={'body1'}
-				style={{
-					alignContent: 'center',
-				}}
-			>
-				Welcome to
-			</Typography>
-			<Grid item xs={12} container style={{ justifyContent: 'center' }}>
-				<Typography
-					color={'black'}
-					variant={innerWidth < 380 ? 'h5' : 'h4'}
-					className={`zoom-in ${isHovered ? 'pointer' : ''}`}
-					onMouseEnter={() => setIsHovered(true)}
-					onMouseLeave={() => setIsHovered(false)}
-					style={{
-						fontFamily: "'Montserrat', sans-serif",
-					}}
-				>
-					Dang Khoa&#39;s Home
-				</Typography>
-			</Grid>
 		</Grid>
 	);
 };

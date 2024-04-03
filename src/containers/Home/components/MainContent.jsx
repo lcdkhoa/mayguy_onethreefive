@@ -23,6 +23,7 @@ const MainContent = () => {
 						objectFit: 'scale-down',
 						height: '75vh',
 					}}
+					className={`zoom-in`}
 				/>
 			</Grid>
 			<Typography
