@@ -40,7 +40,7 @@ const FlattenObjects = ((isArray, wrapped) => {
 	return (table: any) => reduce('', {}, table);
 })(Array.isArray, Object);
 
-const UnflattenObjects = (json: any, keySplit: string) => {
+const _UnflattenObjectsOld = (json: any, keySplit: string) => {
 	const result = {};
 	Object.entries(json).forEach(([key, value]) => {
 		let current = result as any;
@@ -48,6 +48,42 @@ const UnflattenObjects = (json: any, keySplit: string) => {
 		parts.forEach((part, i) => {
 			const isArray = /^([^\\[]+)(\d+)$/.exec(part);
 			if (isArray) {
+				const arrKey = isArray[1];
+				const arrIndex = parseInt(isArray[2]);
+				if (!current[arrKey]) {
+					current[arrKey] = [];
+				}
+				if (i === parts.length - 1) {
+					current[arrKey][arrIndex] = value;
+				} else {
+					if (!current[arrKey][arrIndex]) {
+						current[arrKey][arrIndex] = {};
+					}
+					current = current[arrKey][arrIndex];
+				}
+			} else if (i === parts.length - 1) {
+				current[part] = value;
+			} else {
+				if (!current[part]) {
+					current[part] = {};
+				}
+				current = current[part];
+			}
+		});
+	});
+	return result;
+};
+
+const UnflattenObjects = (json: any, splitKey: string = '_') => {
+	const result = {};
+	Object.entries(json).forEach(([key, value]) => {
+		const parts = key.split(splitKey);
+		let current = result;
+		parts.forEach((part, i) => {
+			const arrayPattern = /^(\D+)(\d+)$/;
+			const isArray = arrayPattern.exec(part);
+			const isEnd = i === parts.length - 1;
+			if (isArray && !isEnd) {
 				const arrKey = isArray[1];
 				const arrIndex = parseInt(isArray[2]);
 				if (!current[arrKey]) {
