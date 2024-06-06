@@ -1,7 +1,5 @@
 import {
-	Box,
 	Button,
-	Container,
 	FormControl,
 	FormControlLabel,
 	FormLabel,
@@ -49,11 +47,11 @@ const App = () => {
 		const formElement = formRef.current;
 
 		// Capture the form using html2canvas
-		const canvas = await html2canvas(formElement, { scale: 1 });
+		const canvas = await html2canvas(formElement, { scale: 1.5 });
 		const imgData = canvas.toDataURL('image/png');
 
-		const imgWidth = canvas.width / 3;
-		const imgHeight = canvas.height / 3;
+		const imgWidth = canvas.width / 2;
+		const imgHeight = canvas.height / 2;
 
 		// Create a new jsPDF document with custom dimensions
 		const pdf = new jsPDF({
@@ -69,21 +67,92 @@ const App = () => {
 	};
 
 	return (
-		<Container maxWidth="lg" style={{ overflow: 'auto' }}>
-			<Container ref={formRef}>
-				<Box
-					component="form"
-					noValidate
-					autoComplete="off"
-					sx={{ mt: 4 }}
-					onSubmit={handleSubmit}
+		<form ref={formRef} onSubmit={handleSubmit}>
+			<Grid
+				container
+				item
+				direction={'column'}
+				id="main"
+				style={{ padding: '20px' }}
+			>
+				<Grid
+					id="header"
+					item
+					container
+					xs={12}
+					style={{ marginTop: '-70px', paddingBottom: '20px' }}
+					gutterBottom
 				>
-					<Typography variant="h4" gutterBottom>
-						PHIẾU GHI DANH (Application form)
-					</Typography>
-					<Typography variant="subtitle1" gutterBottom>
-						Năm học: 2024 - 2025 (School year)
-					</Typography>
+					<Grid
+						item
+						container
+						xs={12}
+						style={{
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						<img
+							src="/images/parent-form/logo.png"
+							alt="Minh Anh Logo"
+							style={{
+								height: '300px',
+								width: '300px',
+							}}
+						/>
+					</Grid>
+
+					<Grid
+						item
+						container
+						xs={12}
+						direction={'row'}
+						style={{ marginTop: '-60px' }}
+					>
+						<Grid xs={3.5} item></Grid>
+						<Grid xs={1.2} item textAlign={'start'}>
+							<Typography variant="caption1" fontWeight={600}>
+								Hotline/ Zalo:
+							</Typography>
+						</Grid>
+						<Grid xs item>
+							<Typography variant="caption1" fontWeight={600}>
+								094 510 71 10
+							</Typography>
+						</Grid>
+					</Grid>
+
+					<Grid
+						item
+						container
+						xs={12}
+						direction={'row'}
+						style={{ marginTop: '-40px' }}
+					>
+						<Grid xs={3.5} item></Grid>
+						<Grid xs={8} item textAlign={'start'}>
+							<Typography variant="caption1" fontWeight={600}>
+								Đường Lê Thanh Nghị, tổ 2, khu 6 - Huyện Côn Đảo, tỉnh Bà Rịa -
+								Vũng Tàu
+							</Typography>
+						</Grid>
+						<Grid xs item>
+							<Typography variant="caption1" fontWeight={600}></Typography>
+						</Grid>
+					</Grid>
+				</Grid>
+
+				<Grid item container xs={12} id="part-i">
+					<Grid item container justifyContent={'center'} xs={12}>
+						<Typography variant="h3" gutterBottom>
+							PHIẾU GHI DANH (Application form)
+						</Typography>
+					</Grid>
+					<Grid item container justifyContent={'center'} xs={12}>
+						<Typography variant="subtitle1" gutterBottom>
+							Năm học: 2024 - 2025 (School year)
+						</Typography>
+					</Grid>
 
 					<Typography variant="h6" gutterBottom>
 						I. Thông tin học viên (Student information)
@@ -135,96 +204,96 @@ const App = () => {
 						value={formData.address}
 						onChange={handleChange}
 					/>
+				</Grid>
 
-					<Typography variant="h6" gutterBottom>
-						II. TT PH
-					</Typography>
-					<TextField
-						fullWidth
-						label="Tên PH / Parent's name"
-						margin="normal"
-						name="parentName"
-						value={formData.parentName}
-						onChange={handleChange}
-					/>
-					<Grid container spacing={2}>
-						<Grid item xs={6}>
-							<TextField
-								fullWidth
-								label="SĐT1"
-								margin="normal"
-								name="phone1"
-								value={formData.phone1}
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={6}>
-							<TextField
-								fullWidth
-								label="SĐT2"
-								margin="normal"
-								name="phone2"
-								value={formData.phone2}
-								onChange={handleChange}
-							/>
-						</Grid>
+				<Typography variant="h6" gutterBottom>
+					II. TT PH
+				</Typography>
+				<TextField
+					fullWidth
+					label="Tên PH / Parent's name"
+					margin="normal"
+					name="parentName"
+					value={formData.parentName}
+					onChange={handleChange}
+				/>
+				<Grid container spacing={2}>
+					<Grid item xs={6}>
+						<TextField
+							fullWidth
+							label="SĐT1"
+							margin="normal"
+							name="phone1"
+							value={formData.phone1}
+							onChange={handleChange}
+						/>
 					</Grid>
-					<TextField
-						fullWidth
-						label="Chữ ký xác nhận"
-						margin="normal"
-						name="signature"
-						value={formData.signature}
-						onChange={handleChange}
-					/>
+					<Grid item xs={6}>
+						<TextField
+							fullWidth
+							label="SĐT2"
+							margin="normal"
+							name="phone2"
+							value={formData.phone2}
+							onChange={handleChange}
+						/>
+					</Grid>
+				</Grid>
+				<TextField
+					fullWidth
+					label="Chữ ký xác nhận"
+					margin="normal"
+					name="signature"
+					value={formData.signature}
+					onChange={handleChange}
+				/>
 
-					<Typography variant="h6" gutterBottom>
-						II. Thông tin lớp đăng ký
-					</Typography>
-					<TextField
-						fullWidth
-						label="Tên lớp"
-						margin="normal"
-						name="className"
-						value={formData.className}
-						onChange={handleChange}
-					/>
-					<TextField
-						fullWidth
-						label="Lịch học (Số buổi / tháng)"
-						margin="normal"
-						name="classSchedule"
-						value={formData.classSchedule}
-						onChange={handleChange}
-					/>
-					<TextField
-						fullWidth
-						label="HP"
-						margin="normal"
-						name="fee"
-						value={formData.fee}
-						onChange={handleChange}
-					/>
-					<TextField
-						fullWidth
-						label="Bắt đầu học từ ngày"
-						margin="normal"
-						name="startDate"
-						value={formData.startDate}
-						onChange={handleChange}
-					/>
+				<Typography variant="h6" gutterBottom>
+					II. Thông tin lớp đăng ký
+				</Typography>
+				<TextField
+					fullWidth
+					label="Tên lớp"
+					margin="normal"
+					name="className"
+					value={formData.className}
+					onChange={handleChange}
+				/>
+				<TextField
+					fullWidth
+					label="Lịch học (Số buổi / tháng)"
+					margin="normal"
+					name="classSchedule"
+					value={formData.classSchedule}
+					onChange={handleChange}
+				/>
+				<TextField
+					fullWidth
+					label="HP"
+					margin="normal"
+					name="fee"
+					value={formData.fee}
+					onChange={handleChange}
+				/>
+				<TextField
+					fullWidth
+					label="Bắt đầu học từ ngày"
+					margin="normal"
+					name="startDate"
+					value={formData.startDate}
+					onChange={handleChange}
+				/>
 
-					<Button
-						type="submit"
-						variant="contained"
-						color="primary"
-						sx={{ mt: 2 }}
-					>
-						Submit
-					</Button>
-				</Box>
-			</Container>
-		</Container>
+				<Button
+					type="submit"
+					variant="contained"
+					color="primary"
+					sx={{ mt: 2 }}
+				>
+					Submit
+				</Button>
+			</Grid>
+		</form>
 	);
 };
 
