@@ -39,7 +39,7 @@ const App = () => {
 	const formRef = useRef(null);
 	const handleChange = (e) => {
 		const classInfo = classTable.find((item) => item.class === e.target.value);
-		setClassInformation(classInfo.classInformation);
+		setClassInformation(classInfo?.classInformation || []);
 		setFormData({
 			...formData,
 			[e.target.name]: e.target.value,
@@ -50,7 +50,6 @@ const App = () => {
 		const classInfo = classInformation.find(
 			(item) => item.className === e.target.value
 		);
-		console.log('classInfo', classInfo);
 		Object.entries(classInfo).forEach(([key, value]) => {
 			setFormData((prev) => ({
 				...prev,
