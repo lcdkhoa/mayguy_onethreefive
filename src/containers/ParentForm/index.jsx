@@ -4,6 +4,7 @@ import {
 	FormControlLabel,
 	FormLabel,
 	Grid,
+	MenuItem,
 	Radio,
 	RadioGroup,
 	TextField,
@@ -12,6 +13,8 @@ import {
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef, useState } from 'react';
+
+import classTable from './constants';
 
 const App = () => {
 	const [formData, setFormData] = useState({
@@ -23,19 +26,36 @@ const App = () => {
 		phone1: '',
 		phone2: '',
 		signature: '',
+		class: '',
 		className: '',
+		classTime: '',
 		classSchedule: '',
-		fee: '',
-		startDate: '',
+		fee: '0đ',
+		classStartDate: '',
+		classDuration: '',
 	});
+	const [classInformation, setClassInformation] = useState([]);
 
 	const formRef = useRef(null);
-	console.log('formData', formData);
-
 	const handleChange = (e) => {
+		const classInfo = classTable.find((item) => item.class === e.target.value);
+		setClassInformation(classInfo.classInformation);
 		setFormData({
 			...formData,
 			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleSelectChange = (e) => {
+		const classInfo = classInformation.find(
+			(item) => item.className === e.target.value
+		);
+		console.log('classInfo', classInfo);
+		Object.entries(classInfo).forEach(([key, value]) => {
+			setFormData((prev) => ({
+				...prev,
+				[key]: value,
+			}));
 		});
 	};
 
@@ -137,6 +157,12 @@ const App = () => {
 							name="fullName"
 							value={formData.fullName}
 							onChange={handleChange}
+							required
+							error={formData.fullName === ''}
+							helperText={
+								formData.fullName === '' &&
+								'Vui lòng nhập tên học viên / Please enter student name'
+							}
 						/>
 						<TextField
 							fullWidth
@@ -145,6 +171,12 @@ const App = () => {
 							name="dob"
 							value={formData.dob}
 							onChange={handleChange}
+							required
+							error={formData.dob === ''}
+							helperText={
+								formData.dob === '' &&
+								'Vui lòng nhập ngày sinh / Please enter date of birth'
+							}
 						/>
 
 						<FormControl component="fieldset" margin="normal">
@@ -176,88 +208,171 @@ const App = () => {
 							name="address"
 							value={formData.address}
 							onChange={handleChange}
+							required
+							error={formData.address === ''}
+							helperText={
+								formData.address === '' &&
+								'Vui lòng nhập địa chỉ / Please enter address'
+							}
 						/>
 					</Grid>
 
-					<Typography variant="h6" gutterBottom>
-						II. Thông tin Phụ huynh (Parent&apos;s information)
-					</Typography>
-					<TextField
-						fullWidth
-						label="Tên phụ huynh / Parent's name"
-						margin="normal"
-						name="parentName"
-						value={formData.parentName}
-						onChange={handleChange}
-					/>
-					<Grid container spacing={2}>
-						<Grid item xs={6}>
-							<TextField
-								fullWidth
-								label="Số điện thoại 1 / Phone number 1"
-								margin="normal"
-								name="phone1"
-								value={formData.phone1}
-								onChange={handleChange}
-							/>
+					<Grid item container xs={12} id="part-ii">
+						<Typography variant="h6" gutterBottom>
+							II. Thông tin Phụ huynh (Parent&apos;s information)
+						</Typography>
+						<TextField
+							fullWidth
+							label="Tên phụ huynh / Parent's name"
+							margin="normal"
+							name="parentName"
+							value={formData.parentName}
+							onChange={handleChange}
+							required
+							error={formData.parentName === ''}
+							helperText={
+								formData.parentName === '' &&
+								'Vui lòng nhập tên phụ huynh / Please enter parent name'
+							}
+						/>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									label="Số điện thoại 1 / Phone number 1"
+									margin="normal"
+									name="phone1"
+									value={formData.phone1}
+									onChange={handleChange}
+									required
+									error={formData.phone1 === ''}
+									helperText={
+										formData.phone1 === '' &&
+										'Vui lòng nhập số điện thoại / Please enter phone number'
+									}
+								/>
+							</Grid>
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									label="Số điện thoại 2 / Phone number 2"
+									margin="normal"
+									name="phone2"
+									value={formData.phone2}
+									onChange={handleChange}
+								/>
+							</Grid>
 						</Grid>
-						<Grid item xs={6}>
-							<TextField
-								fullWidth
-								label="Số điện thoại 2 / Phone number 2"
-								margin="normal"
-								name="phone2"
-								value={formData.phone2}
-								onChange={handleChange}
-							/>
-						</Grid>
+						<TextField
+							fullWidth
+							label="Chữ ký xác nhận / Signature"
+							margin="normal"
+							name="signature"
+							value={formData.signature}
+							onChange={handleChange}
+							required
+							error={formData.signature === ''}
+							helperText={
+								formData.signature === '' &&
+								'Vui lòng nhập chữ ký xác nhận / Please enter signature'
+							}
+						/>
 					</Grid>
-					<TextField
-						fullWidth
-						label="Chữ ký xác nhận / Signature"
-						margin="normal"
-						name="signature"
-						value={formData.signature}
-						onChange={handleChange}
-					/>
 
-					<Typography variant="h6" gutterBottom>
-						III. Thông tin lớp đăng ký (Class information)
-					</Typography>
-					<TextField
-						fullWidth
-						label="Tên lớp / Class name"
-						margin="normal"
-						name="className"
-						value={formData.className}
-						onChange={handleChange}
-					/>
-					<TextField
-						fullWidth
-						label="Lịch học (Số buổi / tháng) / Class schedule (Number of classes / month)"
-						margin="normal"
-						name="classSchedule"
-						value={formData.classSchedule}
-						onChange={handleChange}
-					/>
-					<TextField
-						fullWidth
-						label="Học phí / Fee"
-						margin="normal"
-						name="fee"
-						value={formData.fee}
-						onChange={handleChange}
-					/>
-					<TextField
-						fullWidth
-						label="Bắt đầu học từ ngày / Start date"
-						margin="normal"
-						name="startDate"
-						value={formData.startDate}
-						onChange={handleChange}
-					/>
+					<Grid item container xs={12} id="part-iii">
+						<Typography variant="h6" gutterBottom>
+							III. Thông tin lớp đăng ký (Class information)
+						</Typography>
+
+						<TextField
+							fullWidth
+							label="Cấp học / Grade"
+							margin="normal"
+							name="class"
+							select
+							onChange={handleChange}
+							required
+							error={classInformation.length === 0}
+							helperText={
+								classInformation.length === 0 &&
+								'Vui lòng chọn một cấp học / Please select a grade'
+							}
+						>
+							{classTable.map((item) => (
+								<MenuItem key={item.id} value={item.class}>
+									{item.class}
+								</MenuItem>
+							))}
+						</TextField>
+
+						<TextField
+							fullWidth
+							label="Tên lớp / Class name"
+							margin="normal"
+							name="className"
+							onChange={handleSelectChange}
+							select
+							required
+							error={formData.className === ''}
+							helperText={
+								formData.className === '' &&
+								'Vui lòng chọn một lớp / Please select a class'
+							}
+						>
+							{classInformation.map((item, index) => (
+								<MenuItem key={index} value={item.className}>
+									{item.className}
+								</MenuItem>
+							))}
+						</TextField>
+
+						<TextField
+							fullWidth
+							label="Lịch học (Số buổi / tháng) / Class schedule (Number of classes / month)"
+							margin="normal"
+							name="classSchedule"
+							value={formData.classSchedule}
+							disabled
+						></TextField>
+
+						<TextField
+							fullWidth
+							label="Thời gian học / Class time"
+							margin="normal"
+							name="classTime"
+							value={formData.classTime}
+							disabled
+						></TextField>
+
+						<TextField
+							fullWidth
+							label="Thời lượng học / Class duration"
+							margin="normal"
+							name="classDuration"
+							value={formData.classDuration}
+							disabled
+						/>
+
+						<TextField
+							fullWidth
+							label="Học phí / Fee"
+							margin="normal"
+							name="fee"
+							value={formData.fee}
+							disabled
+						/>
+
+						<TextField
+							fullWidth
+							label="Bắt đầu học từ ngày / Start date"
+							margin="normal"
+							name="classStartDate"
+							value={formData.classStartDate}
+							disabled
+						/>
+					</Grid>
 				</Grid>
-				<Grid item container justifyContent={'center'} xs={12}>
+				<Grid item container justifyContent={'center'} xs={12} id="submit">
 					<Button
 						type="submit"
 						variant="contained"
