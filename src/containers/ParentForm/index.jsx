@@ -24,13 +24,25 @@ const App = () => {
 
 	const formRef = useRef(null);
 	const handleChange = (e) => {
+		const className = e.target.name;
 		const classInfo = classTable.find((item) => item.class === e.target.value);
 		setClassInformation(classInfo?.classInformation || []);
-		setFormData({
-			// ...formData,
-			...initialFormData,
-			// [e.target.name]: e.target.value,
-		});
+		className === 'class'
+			? setFormData({
+					...formData,
+					...{
+						className: '',
+						classTime: '',
+						classSchedule: '',
+						fee: '0đ',
+						classStartDate: '',
+						classDuration: '',
+					},
+				})
+			: setFormData({
+					...formData,
+					[e.target.name]: e.target.value,
+				});
 	};
 
 	const handleSelectChange = (e) => {
