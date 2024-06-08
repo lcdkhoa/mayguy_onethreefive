@@ -27,7 +27,7 @@ const App = () => {
 		const className = e.target.name;
 		const classInfo = classTable.find((item) => item.class === e.target.value);
 		setClassInformation(classInfo?.classInformation || []);
-		className === 'class'
+		className === 'class' // TODOS: Reset form data when class is changed
 			? setFormData({
 					...formData,
 					...{
@@ -67,7 +67,7 @@ const App = () => {
 		const formElement = document.getElementById('main');
 
 		// Capture the form using html2canvas
-		const canvas = await html2canvas(formElement, { scale: 1.5 });
+		const canvas = await html2canvas(formElement, { scale: 1 });
 		const imgData = canvas.toDataURL('image/png');
 
 		const imgWidth = canvas.width / 2;
