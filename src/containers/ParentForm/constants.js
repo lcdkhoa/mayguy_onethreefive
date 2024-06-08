@@ -74,8 +74,8 @@ const classTable = [
 		classInformation: [
 			{
 				className: 'Moon 2',
-				classSchedule: classSchedule246,
-				classTime: classSchedule245,
+				classSchedule: classSchedule245,
+				classTime: classTime14,
 				classDuration: duration,
 				fee: fee825,
 				classStartDate: '17/6/2024',
@@ -198,4 +198,22 @@ const classTable = [
 	},
 ];
 
-export default classTable;
+const initialFormData = {
+	fullName: '',
+	dob: '',
+	gender: '',
+	address: '',
+	parentName: '',
+	phone1: '',
+	phone2: '',
+	signature: '',
+	class: '',
+	className: '',
+	classTime: '',
+	classSchedule: '',
+	fee: '0đ',
+	classStartDate: '',
+	classDuration: '',
+};
+
+export { classTable, initialFormData };

@@ -15,26 +15,10 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useContext, useRef, useState } from 'react';
 
-import classTable from './constants';
+import { classTable, initialFormData } from './constants';
 
 const App = () => {
-	const [formData, setFormData] = useState({
-		fullName: '',
-		dob: '',
-		gender: '',
-		address: '',
-		parentName: '',
-		phone1: '',
-		phone2: '',
-		signature: '',
-		class: '',
-		className: '',
-		classTime: '',
-		classSchedule: '',
-		fee: '0đ',
-		classStartDate: '',
-		classDuration: '',
-	});
+	const [formData, setFormData] = useState(initialFormData);
 	const [classInformation, setClassInformation] = useState([]);
 	let isMobileDevice = useContext(DeviceContext);
 
@@ -43,8 +27,9 @@ const App = () => {
 		const classInfo = classTable.find((item) => item.class === e.target.value);
 		setClassInformation(classInfo?.classInformation || []);
 		setFormData({
-			...formData,
-			[e.target.name]: e.target.value,
+			// ...formData,
+			...initialFormData,
+			// [e.target.name]: e.target.value,
 		});
 	};
 
