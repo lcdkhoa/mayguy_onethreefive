@@ -16,8 +16,7 @@ const fee1170 = '1.170.000đ /tháng';
 const fee1440 = '1.440.000đ /tháng';
 const fee1850 = '1.850.000đ /tháng';
 
-const classTime47cn =
-	'Thứ 4: 19:00 - 20:30 <br/> Thứ 7 & Chủ Nhật: 17:00 - 18:30';
+const classTime47cn = 'Thứ 4: 19:00 - 20:30, Thứ 7 & Chủ Nhật: 17:00 - 18:30';
 const classTime14 = '14:00 - 15:30';
 const classTime1545 = '15:45 - 17:15';
 const classTime800 = '8:00 - 9:30';

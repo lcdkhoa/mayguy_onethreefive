@@ -1,3 +1,4 @@
+import DeviceContext from '@/components/DetectDevice';
 import {
 	Button,
 	FormControl,
@@ -12,7 +13,7 @@ import {
 } from '@mui/material';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import classTable from './constants';
 
@@ -35,6 +36,7 @@ const App = () => {
 		classDuration: '',
 	});
 	const [classInformation, setClassInformation] = useState([]);
+	let isMobileDevice = useContext(DeviceContext);
 
 	const formRef = useRef(null);
 	const handleChange = (e) => {
@@ -132,24 +134,38 @@ const App = () => {
 					</Grid>
 
 					<Grid item container xs={12} id="title">
-						<Grid item container justifyContent={'center'} xs={12}>
-							<Typography variant="h3" gutterBottom>
+						<Grid
+							item
+							container
+							justifyContent={'center'}
+							xs={12}
+							textAlign={'center'}
+						>
+							<Typography variant={isMobileDevice ? 'h4' : 'h3'} gutterBottom>
 								PHIẾU GHI DANH (Application form)
 							</Typography>
 						</Grid>
 
 						<Grid item container justifyContent={'center'} xs={12}>
-							<Typography variant="subtitle1" gutterBottom>
+							<Typography
+								variant={isMobileDevice ? 'subtitle2' : 'subtitle1'}
+								gutterBottom
+							>
 								Năm học: 2024 - 2025 (School year)
 							</Typography>
 						</Grid>
 					</Grid>
 
-					<Grid item container xs={12} id="part-i">
-						<Typography variant="h6" gutterBottom>
+					<Grid item container xs={12} id="part-i" paddingTop={'20px'}>
+						<Typography
+							variant={isMobileDevice ? 'h7' : 'h6'}
+							gutterBottom
+							fontWeight={700}
+						>
 							I. Thông tin học viên (Student&apos;s information)
 						</Typography>
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Tên HV / Full name"
 							margin="normal"
@@ -164,6 +180,7 @@ const App = () => {
 							}
 						/>
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Ngày sinh / DOB"
 							margin="normal"
@@ -201,6 +218,7 @@ const App = () => {
 						</FormControl>
 
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Địa chỉ / Address"
 							margin="normal"
@@ -216,11 +234,16 @@ const App = () => {
 						/>
 					</Grid>
 
-					<Grid item container xs={12} id="part-ii">
-						<Typography variant="h6" gutterBottom>
+					<Grid item container xs={12} id="part-ii" paddingTop={'20px'}>
+						<Typography
+							variant={isMobileDevice ? 'h7' : 'h6'}
+							gutterBottom
+							fontWeight={700}
+						>
 							II. Thông tin Phụ huynh (Parent&apos;s information)
 						</Typography>
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Tên phụ huynh / Parent's name"
 							margin="normal"
@@ -234,35 +257,34 @@ const App = () => {
 								'Vui lòng nhập tên phụ huynh / Please enter parent name'
 							}
 						/>
-						<Grid container spacing={2}>
-							<Grid item xs={6}>
-								<TextField
-									fullWidth
-									label="Số điện thoại 1 / Phone number 1"
-									margin="normal"
-									name="phone1"
-									value={formData.phone1}
-									onChange={handleChange}
-									required
-									error={formData.phone1 === ''}
-									helperText={
-										formData.phone1 === '' &&
-										'Vui lòng nhập số điện thoại / Please enter phone number'
-									}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<TextField
-									fullWidth
-									label="Số điện thoại 2 / Phone number 2"
-									margin="normal"
-									name="phone2"
-									value={formData.phone2}
-									onChange={handleChange}
-								/>
-							</Grid>
-						</Grid>
 						<TextField
+							variant="standard"
+							fullWidth
+							label="Số điện thoại 1 / Phone number 1"
+							margin="normal"
+							name="phone1"
+							value={formData.phone1}
+							onChange={handleChange}
+							required
+							error={formData.phone1 === ''}
+							helperText={
+								formData.phone1 === '' &&
+								'Vui lòng nhập số điện thoại / Please enter phone number'
+							}
+						/>
+
+						<TextField
+							variant="standard"
+							fullWidth
+							label="Số điện thoại 2 / Phone number 2"
+							margin="normal"
+							name="phone2"
+							value={formData.phone2}
+							onChange={handleChange}
+						/>
+
+						<TextField
+							variant="standard"
 							fullWidth
 							label="Chữ ký xác nhận / Signature"
 							margin="normal"
@@ -278,13 +300,18 @@ const App = () => {
 						/>
 					</Grid>
 
-					<Grid item container xs={12} id="part-iii">
-						<Typography variant="h6" gutterBottom>
+					<Grid item container xs={12} id="part-iii" paddingTop={'20px'}>
+						<Typography
+							variant={isMobileDevice ? 'h7' : 'h6'}
+							gutterBottom
+							fontWeight={700}
+						>
 							III. Thông tin lớp đăng ký (Class information)
 						</Typography>
 
 						<TextField
 							fullWidth
+							variant="standard"
 							label="Cấp học / Grade"
 							margin="normal"
 							name="class"
@@ -305,6 +332,7 @@ const App = () => {
 						</TextField>
 
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Tên lớp / Class name"
 							margin="normal"
@@ -326,24 +354,29 @@ const App = () => {
 						</TextField>
 
 						<TextField
+							variant="standard"
 							fullWidth
-							label="Lịch học (Số buổi / tháng) / Class schedule (Number of classes / month)"
+							label="Lịch học / Class schedule"
 							margin="normal"
 							name="classSchedule"
 							value={formData.classSchedule}
 							disabled
+							multiline
 						></TextField>
 
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Thời gian học / Class time"
 							margin="normal"
 							name="classTime"
 							value={formData.classTime}
 							disabled
+							multiline
 						></TextField>
 
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Thời lượng học / Class duration"
 							margin="normal"
@@ -353,6 +386,7 @@ const App = () => {
 						/>
 
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Học phí / Fee"
 							margin="normal"
@@ -362,6 +396,7 @@ const App = () => {
 						/>
 
 						<TextField
+							variant="standard"
 							fullWidth
 							label="Bắt đầu học từ ngày / Start date"
 							margin="normal"
