@@ -11,6 +11,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useContext, useRef, useState } from 'react';
@@ -22,7 +23,9 @@ const App = () => {
 	const [classInformation, setClassInformation] = useState([]);
 	let isMobileDevice = useContext(DeviceContext);
 
+	const theme = useTheme();
 	const formRef = useRef(null);
+
 	const handleChange = (e) => {
 		const className = e.target.name;
 		const classInfo = classTable.find((item) => item.class === e.target.value);
@@ -358,6 +361,11 @@ const App = () => {
 							name="classSchedule"
 							value={formData.classSchedule}
 							disabled
+							sx={{
+								'& .MuiInputBase-input.Mui-disabled': {
+									WebkitTextFillColor: theme.palette.text.primary,
+								},
+							}}
 							multiline
 						></TextField>
 
@@ -369,6 +377,11 @@ const App = () => {
 							name="classTime"
 							value={formData.classTime}
 							disabled
+							sx={{
+								'& .MuiInputBase-input.Mui-disabled': {
+									WebkitTextFillColor: theme.palette.text.primary,
+								},
+							}}
 							multiline
 						></TextField>
 
@@ -379,6 +392,11 @@ const App = () => {
 							margin="normal"
 							name="classDuration"
 							value={formData.classDuration}
+							sx={{
+								'& .MuiInputBase-input.Mui-disabled': {
+									WebkitTextFillColor: theme.palette.text.primary,
+								},
+							}}
 							disabled
 						/>
 
@@ -389,6 +407,11 @@ const App = () => {
 							margin="normal"
 							name="fee"
 							value={formData.fee}
+							sx={{
+								'& .MuiInputBase-input.Mui-disabled': {
+									WebkitTextFillColor: theme.palette.text.primary,
+								},
+							}}
 							disabled
 						/>
 
@@ -399,6 +422,14 @@ const App = () => {
 							margin="normal"
 							name="classStartDate"
 							value={formData.classStartDate}
+							sx={{
+								'& .MuiInputBase-input.Mui-disabled': {
+									WebkitTextFillColor: theme.palette.text.primary,
+								},
+								'& .MuiFormLabel-root.Mui-disabled': {
+									color: theme.palette.text.secondary,
+								},
+							}}
 							disabled
 						/>
 					</Grid>
