@@ -1,8 +1,9 @@
 import HandlerButton from '@/components/HandlerButton';
-import {
-	FlattenObjects,
-	UnFlatObjects,
-} from '@/utils/object-handler-playground';
+import { FlattenObjects, UnFlatObjects } from '@lcdkhoa/object-handler';
+// import {
+// 	FlattenObjects,
+// 	UnFlatObjects,
+// } from '@/utils/object-handler-playground';
 import MonacoEditor from '@monaco-editor/react';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import {
@@ -16,7 +17,6 @@ import {
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-// import { FlattenObjects, UnFlatObjects } from '@lcdkhoa/object-handler';
 import OptionPopover from './components/OptionsPopover';
 
 const EditorToolbar = ({ editorRef }) => {
