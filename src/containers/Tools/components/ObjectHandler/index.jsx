@@ -1,51 +1,14 @@
 import HandlerButton from '@/components/HandlerButton';
-import {
-	FlattenObjects,
-	UnFlatObjects,
-} from '@/utils/object-handler-playground';
+import { FlattenObjects, UnflattenObjects } from '@/utils/object-handler';
 import MonacoEditor from '@monaco-editor/react';
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import {
-	Dialog,
-	DialogContent,
-	Divider,
-	Grid,
-	IconButton,
-	Toolbar,
-} from '@mui/material';
+import { Dialog, DialogContent, Divider, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-// import { FlattenObjects, UnFlatObjects } from '@lcdkhoa/object-handler';
-import OptionPopover from './components/OptionsPopover';
-
-const EditorToolbar = ({ editorRef }) => {
-	const formatDocument = () => {
-		if (!editorRef.current) return;
-		if (!editorRef.current.getValue()) return;
-		try {
-			const formattedText = JSON.stringify(
-				JSON.parse(editorRef.current.getValue()),
-				null,
-				2
-			);
-			editorRef.current.setValue(formattedText);
-		} catch (error) {
-			alert(error);
-		}
-	};
-
-	return (
-		<Toolbar>
-			<IconButton>
-				<FormatAlignRightIcon onClick={formatDocument} />
-			</IconButton>
-		</Toolbar>
-	);
-};
-
-EditorToolbar.propTypes = {
-	editorRef: PropTypes.object.isRequired,
+ObjectHandler.propTypes = {
+	open: PropTypes.bool.isRequired,
+	close: PropTypes.func.isRequired,
+	index: PropTypes.number.isRequired,
 };
 
 export default function ObjectHandler({ ...props }) {
@@ -53,24 +16,6 @@ export default function ObjectHandler({ ...props }) {
 	const [text, setText] = useState('');
 	const [inputText, setInputText] = useState('Add input_');
 	const [outputText, setOutputText] = useState('Add output_');
-	// const editorRef = useRef(null);
-
-	const [toolbarOptionsAnchorEl, setToolbarOptionsAnchorEl] = useState(null);
-	const [splitter, setSelectedSplitter] = useState('_');
-	const handleClick = (event) => {
-		setToolbarOptionsAnchorEl(event.currentTarget);
-	};
-
-	const handleCloseOption = () => {
-		setToolbarOptionsAnchorEl(null);
-	};
-
-	const handleChange = (value) => {
-		setSelectedSplitter(value);
-	};
-
-	const openOption = Boolean(toolbarOptionsAnchorEl);
-	const id = openOption ? 'simple-popover' : undefined;
 
 	const handleClose = () => {
 		close(index);
@@ -118,22 +63,23 @@ export default function ObjectHandler({ ...props }) {
 	};
 
 	const handleFlatten = () => {
+		console.log('handleFlatten');
 		try {
 			const obj = JSON.parse(text);
-			const flatJson = JSON.stringify(FlattenObjects(obj, splitter), null, 2);
+			const flatJson = JSON.stringify(FlattenObjects(obj), null, 2);
 			setText(flatJson);
 		} catch (error) {
-			alert(error);
+			setText('Invalid JSON input.');
 		}
 	};
 
-	const handleUnFlat = () => {
+	const handleUnflatten = () => {
 		try {
 			const obj = JSON.parse(text);
-			const unFlatJson = JSON.stringify(UnFlatObjects(obj, splitter), null, 2);
-			setText(unFlatJson);
+			const unflattenJson = JSON.stringify(UnflattenObjects(obj, '_'), null, 2);
+			setText(unflattenJson);
 		} catch (error) {
-			alert(error);
+			setText('Invalid JSON input.');
 		}
 	};
 
@@ -152,7 +98,6 @@ export default function ObjectHandler({ ...props }) {
 				aria-labelledby="responsive-dialog-title"
 			>
 				<DialogContent>
-					{/* <EditorToolbar editorRef={editorRef} /> */}
 					<MonacoEditor
 						height={'60vh'}
 						theme="vs-light"
@@ -171,9 +116,6 @@ export default function ObjectHandler({ ...props }) {
 							wordWrap: 'off',
 							quickSuggestions: true,
 						}}
-						// onMount={(editor) => {
-						// 	editorRef.current = editor;
-						// }}
 					/>
 				</DialogContent>
 				<Divider />
@@ -186,16 +128,7 @@ export default function ObjectHandler({ ...props }) {
 					paddingTop={2}
 					xs={12}
 				>
-					<OptionPopover
-						id={id}
-						openOption={openOption}
-						toolbarOptionsAnchorEl={toolbarOptionsAnchorEl}
-						handleClick={handleClick}
-						handleCloseOption={handleCloseOption}
-						handleChange={handleChange}
-						splitter={splitter}
-					/>
-					<HandlerButton onClick={() => handleUnFlat()}>
+					<HandlerButton onClick={() => handleUnflatten()}>
 						Convert to Nested
 					</HandlerButton>
 					<HandlerButton onClick={() => handleFlatten()}>
@@ -213,9 +146,3 @@ export default function ObjectHandler({ ...props }) {
 		</form>
 	);
 }
-
-ObjectHandler.propTypes = {
-	open: PropTypes.bool.isRequired,
-	close: PropTypes.func.isRequired,
-	index: PropTypes.number.isRequired,
-};

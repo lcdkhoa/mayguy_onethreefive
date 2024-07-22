@@ -9,7 +9,8 @@ import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputCompone
 import TitleIcon from '@mui/icons-material/Title';
 import WarningIcon from '@mui/icons-material/Warning';
 
-import ObjectHandler from '../components/ObjectHandlerPlayGround';
+import ObjectHandler from '../components/ObjectHandler';
+import ObjectHandlerPlayGround from '../components/ObjectHandlerPlayGround';
 import SwaggerCreator from '../components/SwaggerCreator';
 
 export const ToolCardList = [
@@ -39,7 +40,7 @@ export const ToolCardList = [
 		description:
 			'Convert complex nested data structures into flat formats and vice versa, to enhance simplicity and efficiency in data management. You can freely test and play with this tool.',
 		imageUrl: '/images/cards/object_handler_playground.jpg',
-		component: ObjectHandler,
+		component: ObjectHandlerPlayGround,
 		path: '/tools/object-handler',
 		isSelected: false,
 	},
