@@ -9,15 +9,15 @@ import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputCompone
 import TitleIcon from '@mui/icons-material/Title';
 import WarningIcon from '@mui/icons-material/Warning';
 
-import ObjectHandler from '../components/ObjectHandler';
+import ObjectHandler from '../components/ObjectHandlerPlayGround';
 import SwaggerCreator from '../components/SwaggerCreator';
 
 export const ToolCardList = [
 	{
 		id: 1,
-		title: 'Object-Handler',
+		title: 'Object-Handler 360F',
 		description:
-			'Object-Handler: Convert complex nested data structures into flat formats and back, enhancing simplicity and efficiency in data management.',
+			'Convert complex nested data structures into flat formats and vice versa, to enhance simplicity and efficiency in data management.',
 		imageUrl: '/images/cards/object_handler.png',
 		component: ObjectHandler,
 		path: '/tools/object-handler',
@@ -27,10 +27,20 @@ export const ToolCardList = [
 		id: 2,
 		title: 'Swagger-Creator',
 		description:
-			'Swagger-Creator: Fill in some needed Information of API, this tool will help creating Yaml Swagger file 3.0',
+			'Fill in some needed Information of API, this tool will help creating Yaml Swagger file 3.0',
 		imageUrl: '/images/cards/swagger_converter.png',
 		component: SwaggerCreator,
 		path: '/tools/swagger-creator',
+		isSelected: false,
+	},
+	{
+		id: 1,
+		title: 'Object-Handler PlayGround',
+		description:
+			'Convert complex nested data structures into flat formats and vice versa, to enhance simplicity and efficiency in data management. You can freely test and play with this tool.',
+		imageUrl: '/images/cards/object_handler_playground.jpg',
+		component: ObjectHandler,
+		path: '/tools/object-handler',
 		isSelected: false,
 	},
 ];

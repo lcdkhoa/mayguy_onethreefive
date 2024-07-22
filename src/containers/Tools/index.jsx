@@ -80,7 +80,11 @@ export default function Tools() {
 							alt={tool.title}
 						/>
 						<CardContent>
-							<Typography variant="body2" color="text.secondary">
+							<Typography
+								variant="body2"
+								color="text.secondary"
+								textAlign={'justify'}
+							>
 								{tool.description}
 							</Typography>
 						</CardContent>

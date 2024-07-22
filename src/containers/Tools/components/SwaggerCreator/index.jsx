@@ -42,11 +42,10 @@ const CustomAccordionSummary = styled(AccordionSummary)(() => ({
 
 export default function SwaggerCreator({ ...props }) {
 	const { open, close, index } = props;
-	const { getValues, watch, setValue } = useForm({
+	const { getValues, setValue } = useForm({
 		defaultValues: {},
 	});
-	const watchAllFields = watch();
-	console.log(watchAllFields);
+	// const watchAllFields = watch();
 
 	const handleClose = () => {
 		close(index);

@@ -1,16 +1,16 @@
-const FlattenObjects = ((isArray, wrapped) => {
-	const reduce = (path: any, accumulator: any, table: any) => {
-		if (isArray(table)) {
+const FlattenObjects = (table: object, splitKey: string = '_') => {
+	const reduce = (path: any, accumulator: any, table: object) => {
+		if (Array.isArray(table)) {
 			const { length } = table;
 
 			if (length) {
 				let index = 0;
 
 				while (index < length) {
-					const property = `${path}${index}`;
+					const property = `${path}[${index}]`;
 					const item = table[index];
 					index += 1;
-					if (wrapped(item) !== item) accumulator[property] = item;
+					if (Object(item) !== item) accumulator[property] = item;
 					else reduce(property, accumulator, item);
 				}
 			} else accumulator[path] = table;
@@ -19,15 +19,15 @@ const FlattenObjects = ((isArray, wrapped) => {
 
 			if (path) {
 				Object.entries(table).forEach(([property, item]) => {
-					const prop = `${path}_${property}`;
+					const prop = `${path}${splitKey}${property}`;
 					empty = false;
-					if (wrapped(item) !== item) accumulator[prop] = item;
+					if (Object(item) !== item) accumulator[prop] = item;
 					else reduce(prop, accumulator, item);
 				});
 			} else {
 				Object.entries(table).forEach(([property, item]) => {
 					empty = false;
-					if (wrapped(item) !== item) accumulator[property] = item;
+					if (Object(item) !== item) accumulator[property] = item;
 					else reduce(property, accumulator, item);
 				});
 			}
@@ -37,16 +37,16 @@ const FlattenObjects = ((isArray, wrapped) => {
 
 		return accumulator;
 	};
-	return (table: any) => reduce('', {}, table);
-})(Array.isArray, Object);
+	return reduce('', {}, table);
+};
 
-const _UnflattenObjectsOld = (json: any, keySplit: string) => {
+const UnFlatObjects = (json: any, keySplit: string = '_') => {
 	const result = {};
 	Object.entries(json).forEach(([key, value]) => {
 		let current = result as any;
 		const parts = key.split(keySplit);
 		parts.forEach((part, i) => {
-			const isArray = /^([^\\[]+)(\d+)$/.exec(part);
+			const isArray = /^([^\\[]+)\[(\d+)\]$/.exec(part);
 			if (isArray) {
 				const arrKey = isArray[1];
 				const arrIndex = parseInt(isArray[2]);
@@ -74,7 +74,7 @@ const _UnflattenObjectsOld = (json: any, keySplit: string) => {
 	return result;
 };
 
-const UnflattenObjects = (json: any, splitKey: string = '_') => {
+const _UnFlatObjects = (json: any, splitKey: string = '_') => {
 	const result = {};
 	Object.entries(json).forEach(([key, value]) => {
 		const parts = key.split(splitKey);
@@ -110,4 +110,4 @@ const UnflattenObjects = (json: any, splitKey: string = '_') => {
 	return result;
 };
 
-export { FlattenObjects, UnflattenObjects };
+export { FlattenObjects, UnFlatObjects };

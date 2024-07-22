@@ -15,13 +15,19 @@ const MainContent = () => {
 				overflow: 'hidden',
 			}}
 		>
-			<Grid item container justifyContent={'center'} xs={12}>
+			<Grid
+				item
+				container
+				justifyContent={'center'}
+				xs={12}
+				alignContent={'center'}
+			>
 				<img
 					src="/images/backgrounds/under_construction.png"
 					alt="Under Construction"
 					style={{
 						objectFit: 'scale-down',
-						height: '75vh',
+						maxHeight: isMobileDevice ? '40vh' : '65vh',
 					}}
 					className={`zoom-in`}
 				/>
