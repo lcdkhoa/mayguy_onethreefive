@@ -25,6 +25,10 @@ const OptionPopover = ({
 				anchorEl={toolbarOptionsAnchorEl}
 				onClose={handleCloseOption}
 				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'center',
+				}}
+				transformOrigin={{
 					vertical: 'bottom',
 					horizontal: 'center',
 				}}

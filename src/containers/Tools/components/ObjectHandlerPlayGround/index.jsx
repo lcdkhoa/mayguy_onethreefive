@@ -51,8 +51,6 @@ EditorToolbar.propTypes = {
 export default function ObjectHandler({ ...props }) {
 	const { open, close, index } = props;
 	const [text, setText] = useState('');
-	const [inputText, setInputText] = useState('Add input_');
-	const [outputText, setOutputText] = useState('Add output_');
 	// const editorRef = useRef(null);
 
 	const [toolbarOptionsAnchorEl, setToolbarOptionsAnchorEl] = useState(null);
@@ -75,46 +73,6 @@ export default function ObjectHandler({ ...props }) {
 	const handleClose = () => {
 		close(index);
 		setText('');
-	};
-
-	const handleAddInput = () => {
-		if (inputText === 'Add input_') {
-			setInputText('Remove input_');
-			const obj = JSON.parse(text);
-			Object.keys(obj).forEach((key) => {
-				obj['input_' + key] = obj[key];
-				delete obj[key];
-			});
-			setText(JSON.stringify(obj, null, 2));
-		} else {
-			setInputText('Add input_');
-			const obj = JSON.parse(text);
-			Object.keys(obj).forEach((key) => {
-				obj[key.replace('input_', '')] = obj[key];
-				delete obj[key];
-			});
-			setText(JSON.stringify(obj, null, 2));
-		}
-	};
-
-	const handleAddOutput = () => {
-		if (outputText === 'Add output_') {
-			setOutputText('Remove output_');
-			const obj = JSON.parse(text);
-			Object.keys(obj).forEach((key) => {
-				obj['output_' + key] = obj[key];
-				delete obj[key];
-			});
-			setText(JSON.stringify(obj, null, 2));
-		} else {
-			setOutputText('Add output_');
-			const obj = JSON.parse(text);
-			Object.keys(obj).forEach((key) => {
-				obj[key.replace('output_', '')] = obj[key];
-				delete obj[key];
-			});
-			setText(JSON.stringify(obj, null, 2));
-		}
 	};
 
 	const handleFlatten = () => {
@@ -201,12 +159,7 @@ export default function ObjectHandler({ ...props }) {
 					<HandlerButton onClick={() => handleFlatten()}>
 						Convert to Flat
 					</HandlerButton>
-					<HandlerButton onClick={() => handleAddInput()}>
-						{inputText}
-					</HandlerButton>
-					<HandlerButton onClick={() => handleAddOutput()}>
-						{outputText}
-					</HandlerButton>
+
 					<HandlerButton onClick={handleClose}>Close</HandlerButton>
 				</Grid>
 			</Dialog>
