@@ -1,6 +1,6 @@
 import HandlerButton from '@/components/HandlerButton';
+import MonacoEditorWrapper from '@/components/MonacoEditorWrapper';
 import { ConvertJsonToYaml } from '@/utils/swagger-creator';
-import MonacoEditor from '@monaco-editor/react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
 	Dialog,
@@ -132,24 +132,13 @@ export default function SwaggerCreator({ ...props }) {
 									{tool.description}
 								</Typography>
 								{tool.jsonRender ? (
-									<MonacoEditor
-										height={'40vh'}
-										theme="vs-light"
+									<MonacoEditorWrapper
+										height="40vh"
 										id={tool.id + '_json'}
-										defaultLanguage="json"
 										name={tool.name}
+										value={getValues(tool.name)}
 										onChange={(value) => {
 											setValue(tool.name, value);
-										}}
-										value={getValues(tool.name)}
-										options={{
-											automaticLayout: true,
-											autoIndent: 'full',
-											formatOnPaste: true,
-											formatOnType: true,
-											minimap: { enabled: false },
-											wordWrap: 'off',
-											quickSuggestions: true,
 										}}
 									/>
 								) : (

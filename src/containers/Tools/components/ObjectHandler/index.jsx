@@ -1,6 +1,6 @@
 import HandlerButton from '@/components/HandlerButton';
+import MonacoEditorWrapper from '@/components/MonacoEditorWrapper';
 import { FlattenObjects, UnflattenObjects } from '@/utils/object-handler';
-import MonacoEditor from '@monaco-editor/react';
 import { Dialog, DialogContent, Divider, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
@@ -98,24 +98,9 @@ export default function ObjectHandler({ ...props }) {
 				aria-labelledby="responsive-dialog-title"
 			>
 				<DialogContent>
-					<MonacoEditor
-						height={'60vh'}
-						theme="vs-light"
-						defaultLanguage="json"
-						defaultValue={text}
-						onChange={(e) => {
-							handleOnchange(e);
-						}}
+					<MonacoEditorWrapper
 						value={text}
-						options={{
-							automaticLayout: true,
-							autoIndent: 'full',
-							formatOnPaste: true,
-							formatOnType: true,
-							minimap: { enabled: false },
-							wordWrap: 'off',
-							quickSuggestions: true,
-						}}
+						onChange={handleOnchange}
 					/>
 				</DialogContent>
 				<Divider />

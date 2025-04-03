@@ -1,10 +1,10 @@
 import HandlerButton from '@/components/HandlerButton';
+import MonacoEditorWrapper from '@/components/MonacoEditorWrapper';
 import { FlattenObjects, UnFlatObjects } from '@lcdkhoa/object-handler';
 // import {
 // 	FlattenObjects,
 // 	UnFlatObjects,
 // } from '@/utils/object-handler-playground';
-import MonacoEditor from '@monaco-editor/react';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import {
 	Dialog,
@@ -110,28 +110,9 @@ export default function ObjectHandler({ ...props }) {
 				aria-labelledby="responsive-dialog-title"
 			>
 				<DialogContent>
-					{/* <EditorToolbar editorRef={editorRef} /> */}
-					<MonacoEditor
-						height={'60vh'}
-						theme="vs-light"
-						defaultLanguage="json"
-						defaultValue={text}
-						onChange={(e) => {
-							handleOnchange(e);
-						}}
+					<MonacoEditorWrapper
 						value={text}
-						options={{
-							automaticLayout: true,
-							autoIndent: 'full',
-							formatOnPaste: true,
-							formatOnType: true,
-							minimap: { enabled: false },
-							wordWrap: 'off',
-							quickSuggestions: true,
-						}}
-						// onMount={(editor) => {
-						// 	editorRef.current = editor;
-						// }}
+						onChange={handleOnchange}
 					/>
 				</DialogContent>
 				<Divider />
