@@ -5,7 +5,6 @@ import About from '@/containers/About';
 import Home from '@/containers/Home';
 import NotFound from '@/containers/NotFound';
 import Notes from '@/containers/Notes';
-import ParentForm from '@/containers/ParentForm';
 import Tools from '@/containers/Tools';
 import { Container, Grid } from '@mui/material';
 import { useMediaQuery } from 'react-responsive';
@@ -31,7 +30,6 @@ function App() {
 								<Route path="/" element={<Home />} />
 								<Route path="/notes" element={<Notes />} />
 								<Route path="/tools" element={<Tools />} />
-								<Route path="/tools/form" element={<ParentForm />} />
 								<Route path="/about" element={<About />} />
 								<Route path="*" element={<NotFound />} />
 							</Routes>

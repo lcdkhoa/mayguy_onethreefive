@@ -11,9 +11,7 @@ const MainContent = () => {
 			item
 			container
 			justifyContent={'center'}
-			style={{
-				overflow: 'hidden',
-			}}
+			style={{ overflow: 'hidden' }}
 		>
 			<Grid
 				item
